@@ -127,8 +127,9 @@ body {
             gap: 1rem;
            a:is(:link, :visited){
             border-radius: 50px;
-            background-color: var(--color-1);
+            background: linear-gradient(to right, #fffc, #fff2);
             color: var(--color-2);
+            align-items: center;
             display: flex;
             padding: 0.6rem;
             text-decoration: none;
@@ -137,7 +138,7 @@ body {
             width: 240px;
         } 
         a:is(:hover) {
-            background-color: #fffd;
+            background: linear-gradient(to right, #fffe, #fff2); 
             transform: scale(1.05) translateY(-4px);
         }   
         span {
