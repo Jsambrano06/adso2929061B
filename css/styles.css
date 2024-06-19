@@ -121,12 +121,18 @@ body {
     }
 section {
     padding: 1rem;
+    background-color: var(--color-1);
+    border-radius: 4px;
+    margin-block: 1rem;
+    margin-inline: auto;
+    width: 400px;
     h3 {
         border-bottom: 2px docted var(--color-2);
     }
     p {
         font-size: 1.6rem;
         margin-bottom: 0.6rem;
+        text-align: justify;
         svg {
             width: 40px;
         }
@@ -185,7 +191,8 @@ section {
                 color: #fff9;
                 margin: 0 auto;
                 width: 80%;
-            }
+                text-align: center;
+            }   
 
             img {
                 border-radius: 50%;
@@ -283,6 +290,30 @@ body.Child {
                 width: 200px;
                 height: 200px;
                 object-fit: cover;
+            }
+        }
+    }
+}
+
+
+/* - - - - - - - - - - - - - - - - - */
+/* H T M L*/
+/* - - - - - - - - - - - - - - - - - */
+body.html {
+    background-color: #FF6D1D;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25' viewBox='0 0 1600 800'%3E%3Cg stroke='%23FF742D' stroke-width='66.7' stroke-opacity='0.05' %3E%3Ccircle fill='%23FF6D1D' cx='0' cy='0' r='1800'/%3E%3Ccircle fill='%23f6681c' cx='0' cy='0' r='1700'/%3E%3Ccircle fill='%23ee631b' cx='0' cy='0' r='1600'/%3E%3Ccircle fill='%23e65e19' cx='0' cy='0' r='1500'/%3E%3Ccircle fill='%23dd5918' cx='0' cy='0' r='1400'/%3E%3Ccircle fill='%23d55417' cx='0' cy='0' r='1300'/%3E%3Ccircle fill='%23cc4f15' cx='0' cy='0' r='1200'/%3E%3Ccircle fill='%23c44a14' cx='0' cy='0' r='1100'/%3E%3Ccircle fill='%23bc4512' cx='0' cy='0' r='1000'/%3E%3Ccircle fill='%23b34011' cx='0' cy='0' r='900'/%3E%3Ccircle fill='%23ab3c0f' cx='0' cy='0' r='800'/%3E%3Ccircle fill='%23a3370e' cx='0' cy='0' r='700'/%3E%3Ccircle fill='%239b330c' cx='0' cy='0' r='600'/%3E%3Ccircle fill='%23932e0b' cx='0' cy='0' r='500'/%3E%3Ccircle fill='%238b2a09' cx='0' cy='0' r='400'/%3E%3Ccircle fill='%23832607' cx='0' cy='0' r='300'/%3E%3Ccircle fill='%237b2105' cx='0' cy='0' r='200'/%3E%3Ccircle fill='%23731D03' cx='0' cy='0' r='100'/%3E%3C/g%3E%3C/svg%3E");
+    background-attachment: fixed;
+    background-size: cover;
+
+    main {
+        header {
+            img {
+                border-radius: 50%;
+                border: 10px solid #000000;
+                width: 200px;
+                height: 200px;
+                object-fit: cover;
+                text-align: center;
             }
         }
     }
