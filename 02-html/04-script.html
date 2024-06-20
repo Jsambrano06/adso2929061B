@@ -11,7 +11,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>02-document</title>
+    <title>04-script</title>
     <link rel="stylesheet" href="../css/styles.css">
 </head>
 <body class="html"> 
@@ -22,15 +22,24 @@
     </nav>
     <main>
         <header>
-            <h1>01-HTML 5 Document</h1>
-            <p> Basic structure of document HTML 5.</p>
+            <h1>04- Script (Js)</h1>
+            <p>This tag allow you to insert code to javascript</p>
         </header>
-        <section>  
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci expedita perferendis error distinctio dolorem culpa maiores voluptatum aperiam quibusdam unde.</p> 
+        <section>
+            <h2 >Welcome: <mark class="msg"></mark></h2> 
 
         </section>
        
     </main>
+    <script>
+        const msg = document.querySelector('.msg')
+        let user = prompt("What´s your name?")
+        if (user){
+            msg.innerText = user
+        } else {
+            msg.innerText = 'Guest'
+        }
+    </script>
     
 </body>
 </html>
