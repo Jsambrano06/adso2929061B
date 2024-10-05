@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Challenge 🐴</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Whisper&display=swap" rel="stylesheet">
+    <style> 
+       * {
+        transition: all 0.2s ease-in;
+       } 
+       body {
+        background-color: rgb(88, 88, 255);
+        color: blue;
+        .whisper-regular {
+        font-family: "Whisper", cursive;
+        font-weight: 400;
+        font-style: normal;
+        font-size: 3rem;
+       }
+    }
+       main {
+        padding: 2rem;
+       }
+       main header figure.logo {
+        background: url(Images/Dragon_ball_logo.png) no-repeat center;
+        background-size: 400px 400px;
+        width: 919px;
+        height: 400px;
+        margin: 0 auto;
+       }
+       div.imagenes{
+            align-items: center;
+            display: flex;
+            gap: 3rem;
+            height: 300px;
+            justify-content: center;
+            padding: 1rem;
+            width: 1300px;
+            margin: auto;
+        }
+         div div.prj1 {
+            border: black solid;
+            display: flex;
+            align-items: flex-end;
+            background: url(Images/Trunks_niño.png) no-repeat center /600px;
+            height: 225px;
+            width: 300px;
+            justify-content: center;
+            background-size: 170px;
+        }
+        div div p.gh1 {
+            color: black;
+            background-color: aqua;
+            display: flex;
+            padding: 6px;
+            width: 265px;
+            justify-content: center;
+            top: 300px;
+            transition: transform 0.5s ease-in;
+
+        }
+        p.gh1:is(:hover) {
+            background-color: rgb(88, 88, 255);
+            transform: scale(1.1);
+        }
+        div div.prj2 {
+            border: black solid;
+            display: flex;
+            align-items: flex-end;
+            background: url(Images/Trunks_futuro.png) no-repeat center /550px;
+            height: 225px;
+            width: 300px;
+            justify-content: center;
+            background-size: 250px;
+            color: black;
+        }
+        div div p.gh2 {
+            color: black;
+            background-color: aqua;
+            display: flex;
+            padding: 6px;
+            width: 265px;
+            justify-content: center;
+            top: 300px;
+            transition: transform 0.5s ease-in;
+
+        }
+        p.gh2:is(:hover) {
+            background-color: rgb(88, 88, 255);
+            transform: scale(1.1);
+        }
+        div div.prj3 {
+            border: black solid;
+            display: flex;
+            align-items: flex-end;
+            background: url(Images/Trunks_juegos_de_cell.webp) no-repeat center /500px;
+            height: 230px;
+            width: 300px;
+            justify-content: center;
+            background-size: 200px;
+            color: black;
+        }
+        div div p.gh3 {
+            color: black;
+            background-color: aqua;
+            display: flex;
+            padding: 6px;
+            width: 265px;
+            justify-content: center;
+            top: 300px;
+            transition: transform 0.5s ease-in;
+
+        }
+        p.gh3:is(:hover) {
+            background-color: rgb(88, 88, 255);
+            transform: scale(1.1);
+        }
+        div div.prj4 {
+            border: black solid;
+            display: flex;
+            align-items: flex-end;
+            background: url(Images/Trunks_ssj2.webp) no-repeat center /450px;
+            height: 235px;
+            width: 300px;
+            justify-content: center;
+            background-size: 215px;
+            color: black;
+        }
+        div div p.gh4 {
+            color: black;
+            background-color: aqua;
+            display: flex;
+            padding: 6px;
+            width: 265px;
+            justify-content: center;
+            top: 300px;
+            transition: transform 0.5s ease-in;
+        }
+        p.gh4:is(:hover) {
+            background-color: rgb(88, 88, 255);
+            transform: scale(1.1);
+        }
+        div.paragraphs{
+            background-color: #0009;
+            display: flex;
+            flex-direction: column;
+            width: 1250px;
+            padding: 0.5rem;
+            gap: 0.5rem;
+            margin: auto;
+            width: 1300px;
+        }
+        div div.contenedor{
+            display: flex;
+            flex-direction: row;
+            background-color: white;
+            gap: 4rem;
+            height: 200px;
+            align-items: center;
+        }
+        div.dgb2{
+            display: flex;
+            flex-direction: row;
+            width: 925px;
+            height: 195px;
+            background: url(Images/Vegeta.png) ;
+            background-position: -80px -1184px;
+            background-size: 350px;
+            border: black solid;
+        }
+        div.dgb3{
+            display: flex;
+            flex-direction: row;
+            width: 975px;
+            height: 195px;
+            background: url(Images/Trunks.jpg);
+            background-position: -55px -1190px;
+            background-size: 347px;
+            border: black solid;
+        }
+        p {
+            font-size: 1.1rem;
+            display: flex;
+            text-align: left;
+            color: black;
+        }
+        p:is(:hover){
+            color: blueviolet;
+            cursor: pointer;
+        }
+        h2 {
+            font-family: "Permanet Marker", cursive;
+            font-size: 1.4rem;
+            margin: 0;
+            
+        }
+        main header figure figure.shen {
+            background: url(Images/dragon_super.png) no-repeat;
+            background-size: 1000px;
+            background-position: 0px 500px;
+            display: flex;
+            width: 900px;
+            height: 900px;
+        }
+        @media (max-width: 1250px) {
+            div.imagenes {
+                display: inline;
+            }
+            main header figure.logo {
+                background: url(Images/Dragon_ball_logo.png) no-repeat center;
+                background-size: 500px;
+            }
+            div div.prj1, div div.prj2, div div.prj3, div div.prj4 {
+                width: 100%; 
+                position: sticky;
+                display: flex;
+                border: none;
+            }
+            main header figure figure.shen {
+                background: url(Images/dragon_super.png) no-repeat center;
+                background-size: 870px;
+                background-position: -100px 550px;
+                width: 800px;
+                height: 10000px;
+            }
+            div.paragraphs {
+                display: bloc;
+                width: 1200px;
+                background-color: transparent;
+            }
+            div div.contenedor {
+                width: 70%;
+                height: 50%;
+                display: inline-block;
+                background-color: transparent;
+                justify-content: center;
+                align-items: center;
+            }
+            div div div.dgb2 {
+                width: auto;
+                background: url(Images/Vegeta.png) no-repeat center;
+                background-size: 400px;
+                
+            }
+            div div div.dgb3 {
+                width: auto;
+                background: url(Images/Trunks.jpg) no-repeat center;
+                background-size: 400px;
+            }
+            div div h2 {
+                text-align: center;
+                padding: 0.2rem;
+                background-color: white;
+                overflow: scroll;
+            }
+        }
+        @media (max-width: 680px) {
+            div.imagenes {
+                display: inline;
+            }
+            main header figure.logo {
+                background: url(Images/Dragon_ball_logo.png) no-repeat center;
+                background-size: 400px;
+                background-position: 10px;
+            }
+            div div.prj1, div div.prj2, div div.prj3, div div.prj4 {
+                width: 100%; 
+                position: sticky;
+                display: flex;
+                border: none;
+            }
+            main header figure figure.shen {
+                background: url(Images/dragon_super.png) no-repeat center;
+                background-size: 870px;
+                background-position: -400px 550px;
+                width: 800px;
+                height: 10000px;
+            }
+            div.paragraphs {
+                width: 600px;
+                background-color: transparent;
+            }
+            div div.contenedor {
+                width: 70%;
+                height: 50%;
+                display: inline-block;
+                background-color: transparent;
+                justify-content: center;
+                align-items: center;
+            }
+            div div div.dgb2 {
+                width: auto;
+                background: url(Images/Vegeta.png) no-repeat center;
+                background-size: 400px;
+                
+            }
+            div div div.dgb3 {
+                width: auto;
+                background: url(Images/Trunks.jpg) no-repeat center;
+                background-size: 400px;
+            }
+            div div h2 {
+                text-align: center;
+                padding: 0.2rem;
+                background-color: white;
+                overflow: scroll;
+            }
+        }
+    
+    </style>
+</head>
+<body>
+    <main>
+    <header>
+        <div class="roshi"></div>
+        <div class="kame"></div>
+        <figure class="logo">
+            <figure class="shen"></figure>
+        </figure>
+        <div class="imagenes">
+            <div class="prj1">
+                <p class="gh1">Trunks niño transformado</p>
+            </div>
+            <div class="prj2">
+                <p class="gh2">Trunks del futuro</p>
+            </div>
+            <div class="prj3">
+                <p class="gh3">Trunks (juegos de cell)</p>
+            </div>
+            <div class="prj4">
+                <p class="gh4">Trunks ssj 2</p>
+            </div>
+        </div>
+        <br>
+        <br>
+        <div class="paragraphs">
+            <div class="contenedor">
+                <div class="dgb2"></div>
+                <h2>Papá
+                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Exercitationem minima voluptatem minus quibusdam nemo enim impedit voluptas culpa dolorem, ratione perspiciatis repellat natus quis est iure quisquam inventore sint. Hic recusandae sit quos, eaque perferendis cumque corporis libero assumenda asperiores quo ratione blanditiis sed nesciunt doloribus, sequi ea dolor quaerat id nostrum! Quisquam, ut consectetur ullam hic nam illo! Aperiam maiores numquam facere nam sed fugiat provident saepe! Iusto, consequatur.</p>
+                </h2>
+            </div>
+            <div class="contenedor">
+                <div class="dgb3"></div>
+                <h2>Hijo
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae molestias voluptatibus deleniti assumenda ipsa iure eos quam mollitia temporibus, atque pariatur dolorum perferendis aspernatur at consectetur. Vero atque tempore rerum id, ex sapiente modi facere temporibus ea voluptatum blanditiis laudantium sit libero sint quisquam accusantium illo quaerat architecto. Hic consequuntur voluptas autem voluptatem possimus necessitatibus in quasi expedita magnam quis? Quisquam alias ad natus assumenda, aliquam accusantium ipsum maxime magni!</p>
+                </h2>
+            </div>
+        </div>
+    </header>
+    <section>
+    </section>
+</main>
+</body>
+</html>
