@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Challenge Grid</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        section {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-rows: 1fr 1fr 1fr;
+            grid-gap: 1rem;
+        }
+        section div.box {
+            border: 2px solid rgb(0, 0, 0);
+            background-color: #fff6;
+            height: 120px;
+            width: 120px; 
+        }
+        .box1{
+            background: url(images/Trunks_niño.png);
+            background-size: 70%;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        section div.box2 {
+            grid-column-start:2 ;
+            grid-row-start:1 ;
+            grid-row-end: 3;
+            height: 300px;
+            width: 180px;
+        }
+        section div.box4 {
+            height: 185px;
+            width: 180px;
+        }
+        .img1{
+            width: 250px;
+            height: 300px;
+        }
+        section div.box3 {
+            height: auto;
+        }
+        .img2{
+            width: auto;
+            height: 180px;
+        }
+        .img3{
+            width: 200px;
+            height: 180px;
+        }
+        section div.box6{
+            grid-column-start:1;
+            grid-column-end:3;
+            width: auto;
+            height: auto;
+        }
+        section div.box7{
+            width: auto;
+            height: auto;
+        }
+    </style>
+</head>
+<body class="css">
+    <nav>
+        <a href="index.html">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#ffffff" d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
+        </a>
+    </nav>
+    <main>
+        <header>
+            <h1>Challenge Grid</h1>
+            <h2>Irregular Gallery</h2>
+        </header>
+        <section>
+            <div class="box box1">
+            </div>
+            <div class="box box2">
+                <img src="images/Trunks_futuro.png" class="img1" alt="Trunks_futuro">
+            </div>
+            <div class="box box3">
+                <img src="images/Trunks_juegos_de_cell.webp" class="img2" alt="Trunks_juegos_de_cell">
+            </div>
+            <div class="box box4">
+                <img src="images/Trunks_niño_transformado.jpg" class="img3" alt="Trunks_niño_transformado">
+            </div>
+            <div class="box box5">
+                <img src="images/Trunks_ssj2.webp" class="img4" alt="Trunks_ssj2">
+            </div>
+            <div class="box box6">
+                <img src="images/Trunks.jpg" class="img5" alt="Trunks">
+                
+            </div>
+            <div class="box box7">
+                <img src="images/Vegeta.png" class="img6" alt="Vegeta">
+            </div>
+        </section>
+    </main>
+</body>
+</html>
