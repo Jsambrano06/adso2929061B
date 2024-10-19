@@ -3,62 +3,98 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Challenge Grid</title>
+    <title>45 - Challenge</title>
     <link rel="stylesheet" href="../css/styles.css">
     <style>
-        section {
+        main header p{
+            color: white;
+        }
+        .rectangle1 {
+            margin-top: 3rem;
+            height: 400px;
+            width: fit-content;
+            border: 3px solid #000;
             display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            grid-template-rows: 1fr 1fr 1fr;
-            grid-gap: 1rem;
+            grid-template-columns: repeat(3, 200px);
+            gap: 5px;
+            background-color: black;
+            border-bottom: none;
         }
-        section div.box {
-            border: 2px solid rgb(0, 0, 0);
-            background-color: #fff6;
-            height: 120px;
-            width: 120px; 
+        .rectangle2 {
+            border: 2px solid #000;
+            border-top: 5px solid black;
+            width: fit-content;
+            height: 600px;
+            margin-bottom: 3rem;
+            display: grid;
+            grid-template-columns: repeat(4, 150px);
+            gap: 4.9px;
+            background-color: black;
         }
-        .box1{
-            background: url(images/Trunks_niño.png);
-            background-size: 70%;
+        .c1r1 {
+            background: url(images/Trunks.jpg);
+            background-position: 50%;
+            background-size: 140%;
             background-repeat: no-repeat;
-            background-position: center;
-        }
-        section div.box2 {
-            grid-column-start:2 ;
-            grid-row-start:1 ;
-            grid-row-end: 3;
-            height: 300px;
-            width: 180px;
-        }
-        section div.box4 {
-            height: 185px;
-            width: 180px;
-        }
-        .img1{
-            width: 250px;
-            height: 300px;
-        }
-        section div.box3 {
-            height: auto;
-        }
-        .img2{
-            width: auto;
-            height: 180px;
-        }
-        .img3{
             width: 200px;
-            height: 180px;
+            background-position-y: 30px;
         }
-        section div.box6{
-            grid-column-start:1;
-            grid-column-end:3;
-            width: auto;
-            height: auto;
+        .c2r1 {
+            grid-row: 1 / 3;
+            grid-column: 2 / 3;
+            background: url(images/Trunks_futuro.png) 50% / 150%;
+            background-repeat: no-repeat;
+            height: 400px;
         }
-        section div.box7{
-            width: auto;
-            height: auto;
+        .c3r1 {
+            background: url(images/Trunks_juegos_de_cell.webp) 40% / 100%;
+        }
+        .c1r2 {
+            background: url(images/Trunks_niño.png)
+            no-repeat 18% / 181%;        
+            width: 150px;
+        }
+        .c2r2 {
+            background: url(images/Trunks_niño_transformado.jpg) 50% / 80%;
+            width: 200px;
+            background-position-x: center;
+            background-repeat: no-repeat;
+        }
+        .c1r3 {
+            background: url(images/Vegeta.png);
+        }
+        .leftbig {
+            grid-column: 1 / 3;
+            grid-row: 1 / 3;
+            background: url(images/Vegeta.png) 50% / cover ;
+        }
+        .row1c2 {
+            background: url(images/Trunks.jpg) 40% /cover;
+        }
+        .row1c3 {
+            background: url(images/Trunks_niño_transformado.jpg) 50% /cover;
+        }
+        .row3c1 {
+            background: url(images/Trunks_futuro.png) 50% / cover;
+        }
+        .row3c2 {
+            background: url(images/Trunks_niño.png) 50% / cover;
+        }
+        
+        .rightbig {
+            grid-column: 3 / 5;
+            grid-row: 2 / 4;
+            background: url(images/Trunks_juegos_de_cell.webp) 50% / cover;
+        }
+
+        .back {
+            background: #fff9;
+            width: 640px;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            border-radius: 50px;
+            position: relative;
         }
     </style>
 </head>
@@ -70,32 +106,30 @@
     </nav>
     <main>
         <header>
-            <h1>Challenge Grid</h1>
-            <h2>Irregular Gallery</h2>
+            <h1> 45 - Challenge </h1>
+            <p>
+                Irregular Gallery.
+            </p>
         </header>
-        <section>
-            <div class="box box1">
+        <section class="back">
+            <div class="rectangle1">
+                <div class="square c1r1"></div>
+                <div class="square c2r1"></div>
+                <div class="square c3r1"></div>
+                <div class="square c1r2"></div>
+                <div class="square c2r2"></div>
+                <div class="square c1r3"></div>
             </div>
-            <div class="box box2">
-                <img src="images/Trunks_futuro.png" class="img1" alt="Trunks_futuro">
+            <div class="rectangle2">
+                <div class="square leftbig "></div>
+                <div class="square row1c2"></div>
+                <div class="square row1c3"></div>
+                <div class="square rightbig"></div>
+                <div class="square row3c1"></div>
+                <div class="square row3c2"></div>
             </div>
-            <div class="box box3">
-                <img src="images/Trunks_juegos_de_cell.webp" class="img2" alt="Trunks_juegos_de_cell">
-            </div>
-            <div class="box box4">
-                <img src="images/Trunks_niño_transformado.jpg" class="img3" alt="Trunks_niño_transformado">
-            </div>
-            <div class="box box5">
-                <img src="images/Trunks_ssj2.webp" class="img4" alt="Trunks_ssj2">
-            </div>
-            <div class="box box6">
-                <img src="images/Trunks.jpg" class="img5" alt="Trunks">
-                
-            </div>
-            <div class="box box7">
-                <img src="images/Vegeta.png" class="img6" alt="Vegeta">
-            </div>
-        </section>
+    </section>
     </main>
+    
 </body>
 </html>
