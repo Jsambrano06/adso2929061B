@@ -1,3 +1,15 @@
+/* - - - - - - - - - - - - - - */
+/* F O N T S */
+/* - - - - - - - - - - - - - - */
+@font-face {
+    font-family: 'Poppins-400';
+    src: url(../fonts/Poppins-400.ttf);
+}
+@font-face {
+    font-family: 'Poppins-600';
+    src: url(../fonts/Poppins-600.ttf);
+}
+/* @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;600&display=swap'); */
 /* - - - - - - - - - - - - - - - - - */
 /* 01 - R E S E T */
 /* - - - - - - - - - - - - - - - - - */
@@ -60,18 +72,14 @@ html {
     scroll-behavior: smooth;
 }
 
-/* - - - - - - - - - - - - - - - - - */
-/* 02 - F O N T S*/
-/* - - - - - - - - - - - - - - - - - */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;600&display=swap');
-
-/* - - - - - - - - - - - - - - - - - */
-/* 03 - V A R I A B L E S */
-/* - - - - - - - - - - - - - - - - - */
+/* - - - - - - - - - - - - - - */
+/* V A R I A B L E S */
+/* - - - - - - - - - - - - - - */
 :root {
     --color-1: #fff9;
     --color-2: #0009;
-    --font-bd: Poppins, sans-serif;
+    --font-400: 'Poppins-400', sans-serif;
+    --font-600: 'Poppins-600', sans-serif;
 }
 
 /* - - - - - - - - - - - - - - - - - */
@@ -375,6 +383,31 @@ body.sass {
             a {
                 span {
                     background-color: #cd639a;
+                }
+            }
+        }
+    }
+}
+/* - - - - - - - - - - - - - - */
+/* B O O T S T R A P */
+/* - - - - - - - - - - - - - - */
+body.bootstrap {
+    background-color: #6D10E5;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25' viewBox='0 0 800 800'%3E%3Cg %3E%3Ccircle fill='%236D10E5' cx='400' cy='400' r='600'/%3E%3Ccircle fill='%235d0ec4' cx='400' cy='400' r='500'/%3E%3Ccircle fill='%234e0ca3' cx='400' cy='400' r='400'/%3E%3Ccircle fill='%233f0984' cx='400' cy='400' r='300'/%3E%3Ccircle fill='%23310766' cx='400' cy='400' r='200'/%3E%3Ccircle fill='%2323054A' cx='400' cy='400' r='100'/%3E%3C/g%3E%3C/svg%3E");
+    background-attachment: fixed;
+    background-size: cover;
+    main {
+        header {
+            img {
+                background-color: #fffa;
+                object-fit: contain;
+                border-color: var(--color-1);
+            }
+        }
+        menu {
+            a {
+                span {
+                    background-color: #7110f3;
                 }
             }
         }
