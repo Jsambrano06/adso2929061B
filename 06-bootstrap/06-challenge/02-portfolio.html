@@ -10,21 +10,40 @@
 <body class="bg-light">
 <header class="text-dark position-relative" style="background: linear-gradient(90deg, #96C2DB 50%, #E5EDF1 50%);">
     <div class="container">
-      <div class="d-flex justify-content-between align-items-center py-2">
-        <div class="d-flex align-items-center">
-            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-person-circle me-2 text-dark" viewBox="0 0 16 16">
-              <path d="M13.468 12.37C12.758 11.226 11.482 10.5 10 10.5s-2.758.726-3.468 1.87A6.986 6.986 0 0 0 8 15a6.986 6.986 0 0 0 1.468-.63z"/>
-              <path fill-rule="evenodd" d="M8 1a7 7 0 1 1 0 14A7 7 0 0 1 8 1zm0 1a6 6 0 1 0 0 12A6 6 0 0 0 8 2zm0 1a3 3 0 1 1 0 6 3 3 0 0 1 0-6z"/>
+      <div class="d-flex justify-content-between align-items-center py-2">         
+        <nav class="z-3 px-lg-5 px-3 navbar navbar-expand-lg py-3 d-flex justify-content-between w-100">
+          <!-- Contenedor del logo y nombre alineado a la izquierda -->
+          <div class="d-flex align-items-center ms-3"> <!-- Se usa ms-3 para dejar un poco de margen izquierdo -->
+            <svg style="width: 60px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#000">
+              <path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm0 18.22a8.18 8.18 0 0 1-5.03-1.72 8.18 8.18 0 0 1 10.06 0A8.18 8.18 0 0 1 12 20.22Zm6.32-2.97C16.6 15.84 14.4 15 12 15s-4.6.84-6.32 2.25a8.22 8.22 0 1 1 12.64 0ZM12 6a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm0 6c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2Z"></path>
             </svg>
-            <span class="fw-bold fs-5 text-dark">Jacobo <span class="text-dark">Sambrano</span></span>
-          </div>          
-        <nav>
-          <ul class="nav">
-            <li class="nav-item"><a href="#home" class="nav-link text-black"><h5>Home</h5></a></li>
-            <li class="nav-item"><a href="#about" class="nav-link text-black"><h5>About</h5></a></li>
-            <li class="nav-item"><a href="#services" class="nav-link text-black"><h5>Services</h5></a></li>
-            <li class="nav-item"><a href="#portfolio" class="nav-link text-black"><h5>Portfolio</h5></a></li>
-          </ul>
+            <h2 class="my-auto fw-bolder">
+              <span style="color: #c216b9">Jacobo </span>Sambrano
+            </h2>
+          </div>
+        
+          <!-- Botón del menú hamburguesa -->
+          <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" type="button">
+            <span style="filter: invert(1);" class="navbar-toggler-icon"></span>
+          </button>
+        
+          <!-- Menú de navegación alineado a la derecha -->
+          <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a href="#home" class="nav-link text-black fs-5">Home</a>
+              </li>
+              <li class="nav-item">
+                <a href="#about" class="nav-link text-black fs-5">About</a>
+              </li>
+              <li class="nav-item">
+                <a href="#services" class="nav-link text-black fs-5">Services</a>
+              </li>
+              <li class="nav-item">
+                <a href="#portfolio" class="nav-link text-black fs-5">Portfolio</a>
+              </li>
+            </ul>
+          </div>
         </nav>
       </div>
       <div class="row align-items-center py-2"> 
