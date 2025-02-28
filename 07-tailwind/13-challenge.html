@@ -4,8 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>00-template</title>
+    <title>13-challenge</title>
     <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <style>
 
     </style>
@@ -13,18 +14,48 @@
 
 <body class="bg-blue-500">
     <main>
-        <section>
-            <div class="h-auto">
+        <section style="border-radius: 30px; padding: 0px;" class="shadow-2xl shadow-black/90">
+            <div id="inicio" class="h-auto bg-[#ffffff74]" style="border-radius: 30px;">
                 <img src="images/learn-english.jpg" alt="learn-english" class="h-40">
                 <h1 class="text-center font-bold text-5xl text-gray-700 mt-4">StandUp</h1>
-                <p class="text-center mx-14 text-gray-600 text-base mt-4">are you ready for learn lenguages easily in the
-                    funniest way ?</p>
-                <button class="mt-4 " onclick="tarjeta2()">Get started</button>
+                <p class="text-center mx-14 text-gray-600 text-base mt-4">Are you ready to learn languages easily in the
+                    funniest way?</p>
+                <button onclick="showPage('cursos')" class="my-9 w-2/4 py-2 mx-[25%] rounded-lg bg-gray-950 hover:bg-gray-900 shadow-5xl text-gray-300 text-lg font-semibold transition-all duration-[5s] ease-in-out transform hover:scale-105 cursor-pointer">Get started</button>
             </div>
+            <!-- cursos -->
+
+            <div id="cursos" class="hidden py-0 bg-[#ffffff74]" style="border-radius: 30px;">
+                <button onclick="showPage('inicio')" class="m-4 transition-all duration-[5s] ease-in-out transform hover:scale-120 cursor-pointer">
+                    <i class="fas fa-house text-3xl" style="color: #585858;"></i>
+                </button>
+                <h1 class="text-3xl ml-6 mt-1">A2 - Elementary</h1>
+                <div class="m-7 flex items-center">
+                    <div class="w-16 h-16 bg-gray-300 rounded-full flex items-center justify-center">
+                        <span class="text-gray-600 text-lg font-bold">0%</span>
+                    </div>
+                    <div class="ml-6">
+                        <h4 class="text-xl font-semibold text-gray-600">Lesson 1</h4>
+                        <p>How are you?</p>
+                    </div>
+                </div>
+                <div class="m-7 flex justify-center">
+                    <img src="images/presentar.jpg" alt="presentar" class="w-80 h-4">
+                </div>
+            </div>
+            
         </section>
+        <script>
+            function showPage(sectionToShow) {
+                // Ocultar todas las secciones
+                document.querySelectorAll('section > div').forEach(section => {
+                    section.classList.add('hidden');
+                });
+                // Mostrar la sección seleccionada
+                document.getElementById(sectionToShow).classList.remove('hidden');
+            }
+        </script>
     </main>
     <script src="js/tailwind.js"></script>
-    <script></script>
 </body>
 
 </html>
