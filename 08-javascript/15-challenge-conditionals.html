@@ -189,7 +189,7 @@
         const showWeather = async (q) => {
             show.innerHTML = "Loading...";
             try {
-                const url = `http://api.weatherapi.com/v1/current.json?key=2d5e221c0a4341b29ce10745251005&q=${q}`
+                const url = `https://api.weatherapi.com/v1/current.json?key=2d5e221c0a4341b29ce10745251005&q=${q}`
                 const response = await fetch(url)
                 const data = await response.json()
                 if (!data || !data.location) {
