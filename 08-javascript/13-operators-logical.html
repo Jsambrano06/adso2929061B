@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -100,11 +101,11 @@
             border-radius: 50%;
         }
 
-        input:checked + .slider {
+        input:checked+.slider {
             background-color: #2196F3;
         }
 
-        input:checked + .slider:before {
+        input:checked+.slider:before {
             transform: translateX(36px);
         }
 
@@ -190,75 +191,80 @@
         }
     </style>
 </head>
+
 <body class="js">
     <nav>
         <a href="index.html">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#ffffff" d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg> 
+            <svg xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                <path fill="#ffffff"
+                    d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z" />
+            </svg>
         </a>
-     </nav>
-     <main>
+    </nav>
+    <main>
         <header>
             <h1>13-operators-logical</h1>
             <p>
                 Combine conditions using logical operators.
             </p>
         </header>
-    <div class="calculator">
-        <div class="theme-toggle">
-            <span>light / dark</span>
-            <label class="switch">
-                <input type="checkbox" id="themeToggle">
-                <span class="slider round"></span>
-            </label>
+        <div class="calculator">
+            <div class="theme-toggle">
+                <span>light / dark</span>
+                <label class="switch">
+                    <input type="checkbox" id="themeToggle">
+                    <span class="slider round"></span>
+                </label>
+            </div>
+
+            <div class="display">
+                <div class="operation" id="operation"></div>
+                <div class="result" id="result">0</div>
+            </div>
+
+            <div class="buttons">
+                <button class="btn-function" id="clear">C</button>
+                <button class="btn-function" id="delete">&lt;</button>
+                <button class="btn-function" id="power">^</button>
+                <button class="btn-operator" id="percent">%</button>
+
+                <button class="btn-number" data-number="7">7</button>
+                <button class="btn-number" data-number="8">8</button>
+                <button class="btn-number" data-number="9">9</button>
+                <button class="btn-operator" data-operator="X">X</button>
+
+                <button class="btn-number" data-number="4">4</button>
+                <button class="btn-number" data-number="5">5</button>
+                <button class="btn-number" data-number="6">6</button>
+                <button class="btn-operator" data-operator="-">-</button>
+
+                <button class="btn-number" data-number="1">1</button>
+                <button class="btn-number" data-number="2">2</button>
+                <button class="btn-number" data-number="3">3</button>
+                <button class="btn-operator" data-operator="+">+</button>
+
+                <button class="btn-operator" data-operator="/">/</button>
+                <button class="btn-number" data-number="0">0</button>
+                <button class="btn-number" id="decimal">.</button>
+                <button class="btn-equals" id="equals">=</button>
+            </div>
         </div>
-        
-        <div class="display">
-            <div class="operation" id="operation"></div>
-            <div class="result" id="result">0</div>
-        </div>
-        
-        <div class="buttons">
-            <button class="btn-function" id="clear">C</button>
-            <button class="btn-function" id="delete">&lt;</button>
-            <button class="btn-function" id="power">^</button>
-            <button class="btn-operator" id="percent">%</button>
-            
-            <button class="btn-number" data-number="7">7</button>
-            <button class="btn-number" data-number="8">8</button>
-            <button class="btn-number" data-number="9">9</button>
-            <button class="btn-operator" data-operator="X">X</button>
-            
-            <button class="btn-number" data-number="4">4</button>
-            <button class="btn-number" data-number="5">5</button>
-            <button class="btn-number" data-number="6">6</button>
-            <button class="btn-operator" data-operator="-">-</button>
-            
-            <button class="btn-number" data-number="1">1</button>
-            <button class="btn-number" data-number="2">2</button>
-            <button class="btn-number" data-number="3">3</button>
-            <button class="btn-operator" data-operator="+">+</button>
-            
-            <button class="btn-operator" data-operator="/">/</button>
-            <button class="btn-number" data-number="0">0</button>
-            <button class="btn-number" id="decimal">.</button>
-            <button class="btn-equals" id="equals">=</button>
-        </div>
-    </div>
     </main>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             // Variables de la calculadora
             let currentInput = '0';
             let previousInput = '';
             let operation = null;
             let resetScreen = false;
             let fullOperation = '';
-            
+
             // Elementos del DOM
             const displayOperation = document.getElementById('operation');
             const displayResult = document.getElementById('result');
             const themeToggle = document.getElementById('themeToggle');
-            
+
             // Botones
             const numberButtons = document.querySelectorAll('[data-number]');
             const operatorButtons = document.querySelectorAll('[data-operator]');
@@ -268,13 +274,13 @@
             const percentButton = document.getElementById('percent');
             const decimalButton = document.getElementById('decimal');
             const equalsButton = document.getElementById('equals');
-            
+
             // Funciones de la calculadora
             function updateDisplay() {
                 displayResult.textContent = currentInput;
                 displayOperation.textContent = fullOperation || '';
             }
-            
+
             function appendNumber(number) {
                 if (currentInput === '0' || resetScreen) {
                     currentInput = number;
@@ -284,7 +290,7 @@
                 }
                 updateDisplay();
             }
-            
+
             function addDecimal() {
                 if (resetScreen) {
                     currentInput = '0.';
@@ -292,37 +298,37 @@
                     updateDisplay();
                     return;
                 }
-                
+
                 if (!currentInput.includes('.')) {
                     currentInput += '.';
                     updateDisplay();
                 }
             }
-            
+
             function handleOperator(op) {
                 if (operation !== null && !resetScreen) {
                     calculate();
                 }
-                
+
                 if (currentInput !== '0' || op === '-' || op === '+') {
                     fullOperation = `${currentInput} ${op}`;
                 }
-                
+
                 previousInput = currentInput;
                 operation = op;
                 resetScreen = true;
                 updateDisplay();
             }
-            
+
             function calculate() {
                 let result;
                 const prev = parseFloat(previousInput);
                 const current = parseFloat(currentInput);
-                
+
                 if (isNaN(prev)) return;
-                
+
                 fullOperation = `${previousInput} ${operation} ${currentInput} =`;
-                
+
                 switch (operation) {
                     case '+':
                         result = prev + current;
@@ -345,13 +351,13 @@
                     default:
                         return;
                 }
-                
+
                 currentInput = result.toString();
                 operation = null;
                 resetScreen = true;
                 updateDisplay();
             }
-            
+
             function clearAll() {
                 currentInput = '0';
                 previousInput = '';
@@ -359,7 +365,7 @@
                 fullOperation = '';
                 updateDisplay();
             }
-            
+
             function deleteLastChar() {
                 if (currentInput.length === 1 || (currentInput.length === 2 && currentInput.startsWith('-'))) {
                     currentInput = '0';
@@ -368,26 +374,26 @@
                 }
                 updateDisplay();
             }
-            
+
             function calculatePercentage() {
                 currentInput = (parseFloat(currentInput) / 100).toString();
                 updateDisplay();
             }
-            
+
             // Event Listeners para números
             numberButtons.forEach(button => {
                 button.addEventListener('click', () => {
                     appendNumber(button.getAttribute('data-number'));
                 });
             });
-            
+
             // Event Listeners para operadores
             operatorButtons.forEach(button => {
                 button.addEventListener('click', () => {
                     handleOperator(button.getAttribute('data-operator'));
                 });
             });
-            
+
             // Event Listeners para botones especiales
             equalsButton.addEventListener('click', calculate);
             clearButton.addEventListener('click', clearAll);
@@ -395,9 +401,9 @@
             powerButton.addEventListener('click', () => handleOperator('^'));
             percentButton.addEventListener('click', calculatePercentage);
             decimalButton.addEventListener('click', addDecimal);
-            
+
             // Cambio de tema
-            themeToggle.addEventListener('change', function() {
+            themeToggle.addEventListener('change', function () {
                 if (this.checked) {
                     document.body.setAttribute('data-theme', 'dark');
                     localStorage.setItem('theme', 'dark');
@@ -406,17 +412,55 @@
                     localStorage.setItem('theme', 'light');
                 }
             });
-            
+
             // Cargar tema preferido
             const savedTheme = localStorage.getItem('theme');
             if (savedTheme === 'dark') {
                 themeToggle.checked = true;
                 document.body.setAttribute('data-theme', 'dark');
             }
-            
+
             // Inicialización
             updateDisplay();
         });
+
+        //usar teclado
+        document.addEventListener('keyup', function (e) {
+            e.preventDefault(); // Evita comportamientos no deseados
+
+            // Mapeo de teclas
+            const keyMap = {
+                // Números (0-9)
+                48: '0', 49: '1', 50: '2', 51: '3', 52: '4',
+                53: '5', 54: '6', 55: '7', 56: '8', 57: '9',
+                96: '0', 97: '1', 98: '2', 99: '3', 100: '4',
+                101: '5', 102: '6', 103: '7', 104: '8', 105: '9',
+
+                // Operadores
+                106: 'X', 107: '+', 109: '-', 111: '/',
+                88: 'X', // Tecla X alternativa
+                187: '=', 13: '=', // Enter/=
+                8: '<', // Backspace (para borrar)
+                27: 'C', // Escape (para limpiar)
+                46: 'C', // Delete (alternativa para limpiar)
+                190: '.', // Punto decimal
+                110: '.'  // Punto decimal en keypad
+            };
+
+            // Obtener la acción correspondiente
+            const action = keyMap[e.keyCode];
+
+            if (action) {
+                // Simular click en el botón correspondiente
+                const buttons = document.querySelectorAll('.buttons button');
+                buttons.forEach(button => {
+                    if (button.textContent === action) {
+                        button.click(); // Dispara el evento click
+                    }
+                });
+            }
+        });
     </script>
 </body>
+
 </html>

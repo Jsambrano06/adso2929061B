@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>15 - Challenge Conditional</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        body {
+            background: #222;
+            min-height: 100vh;
+        }
+        main {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .weather {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .q, .btn {
+            margin: 10px 0;
+            padding: 8px 12px;
+            border-radius: 6px;
+            border: none;
+            font-size: 1rem;
+        }
+        .btn {
+            background: #1976d2;
+            color: #fff;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .btn:hover {
+            background: #125a9c;
+        }
+        .show {
+            margin-top: 20px;
+            min-height: 450px;
+            min-width: 350px;
+        }
+        .weather-card {
+            width: 350px;
+            height: 430px;
+            border-radius: 24px;
+            box-shadow: 0 6px 24px rgba(0,0,0,0.13);
+            padding: 30px 28px 28px 28px;
+            margin: 0 auto;
+            font-family: 'Arial', sans-serif;
+            position: relative;
+            color: #222;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow: hidden;
+        }
+        .weather-card.day {
+            background-image: url('images/dia.png');
+            color: #222;
+        }
+        .weather-card.night {
+            background-image: url('images/noche.png');
+            color: #e6e6e6;
+        }
+        .weather-header {
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            justify-content: center;
+            width: 100%;
+            margin-bottom: 10px;
+            position: relative;
+        }
+        .header-center {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        .weather-logo {
+            width: 36px;
+            height: 36px;
+            object-fit: contain;
+            margin-left: 12px;
+        }
+
+        .country {
+            font-style: italic;
+            font-weight: bold;
+            font-size: 1.2rem;
+            display: block;
+        }
+        .city {
+            font-size: 2rem;
+            font-weight: bold;
+            display: block;
+        }
+        .date {
+            font-size: 1rem;
+            margin-top: 2px;
+            opacity: 0.85;
+        }
+        .weather-main {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 2;
+        }
+        .weather-main .weather-img {
+            margin-bottom: 8px;
+        }
+        .weather-main .temp {
+            font-size: 5.5rem;
+            font-weight: bold;
+            line-height: 1;
+            margin-bottom: 0;
+        }
+        .weather-main .degree {
+            font-size: 3rem;
+            vertical-align: super;
+        }
+        .weather-desc {
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: 500;
+            margin-bottom: 12px;
+            z-index: 2;
+        }
+        .weather-details {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 18px;
+            font-size: 1.1rem;
+            z-index: 2;
+        }
+        .weather-details .label {
+            font-weight: bold;
+        }
+        .weather-img {
+            width: 120px;
+            height: 80px;
+            object-fit: contain;
+        }
+        @media (max-width: 400px) {
+            .weather-card {
+                width: 98vw;
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body class="js">
+    <nav>
+        <a href="index.html">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="#ffffff" d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
+        </a>
+    </nav>
+    <main>
+        <header>
+            <h1>15 - Challenge Conditional</h1>
+            <p>
+                Solve problems using conditional logic.
+            </p>
+        </header>
+        <section>
+          <figure class="weather">
+            <input type="text" class="q" placeholder="Location">
+            <button class="btn">Show</button>
+            <div class="show"></div>
+          </figure>
+        </section>
+    </main>
+    <script>
+        // Elements
+        const q    = document.querySelector('.q')
+        const btn  = document.querySelector('.btn')
+        const show = document.querySelector('.show')
+
+        btn.addEventListener('click', (e) => {
+            showWeather(q.value)
+        })
+
+        // Function 
+        const showWeather = async (q) => {
+            show.innerHTML = "Loading...";
+            try {
+                const url = `http://api.weatherapi.com/v1/current.json?key=2d5e221c0a4341b29ce10745251005&q=${q}`
+                const response = await fetch(url)
+                const data = await response.json()
+                if (!data || !data.location) {
+                    show.innerHTML = "<div style='color:red'>Location not found.</div>";
+                    return;
+                }
+
+                const info = {
+                    "country": data.location.country,
+                    "name": data.location.name,
+                    "time": data.location.localtime,
+                    "temp": data.current.temp_c,
+                    "isDay": data.current.is_day,
+                    "conditionIcon": data.current.condition.icon,
+                    "conditionText": data.current.condition.text,
+                    "humidity": data.current.humidity,
+                    "clouds": data.current.cloud
+                };
+
+                // Formato de fecha
+                const date = info.time.split(' ')[0];
+                const hour = info.time.split(' ')[1];
+                const formattedDate = `${date} ${hour}`;
+
+                // Día o noche
+                const isDay = info.isDay === 1;
+                const cardClass = isDay ? 'weather-card day' : 'weather-card night';
+
+                // Icono personalizado pequeño para día/noche
+                const weatherIcon = isDay
+                    ? 'images/weather-dia.png'   // Ícono para el día
+                    : 'images/weather-noche.png' 
+
+                show.innerHTML = `
+                <div class="${cardClass}">
+                    <div class="weather-header">
+                    <div class="header-center">
+                        <span class="country">${info.country}</span>
+                        <span class="city">${info.name}</span>
+                        <span class="date">${formattedDate}</span>
+                    </div>
+                    <img src="${weatherIcon}" alt="Weather Icon" class="weather-logo">
+                    </div>
+                    <div class="weather-main">
+                    <img src="${info.conditionIcon}" alt="${info.conditionText}" class="weather-img">
+                    <div class="temp">
+                        ${info.temp}<span class="degree">°</span>
+                    </div>
+                    </div>
+                    <div class="weather-desc">
+                    <span class="label">Condition:</span> ${info.conditionText}
+                    </div>
+                    <div class="weather-details">
+                    <div><span class="label">Humidity:</span> ${info.humidity}</div>
+                    <div><span class="label">Cloud:</span> ${info.clouds}</div>
+                    </div>
+                </div>
+                `;
+
+            } catch (err) {
+                show.innerHTML = "<div style='color:red'>Error fetching weather data.</div>";
+            }
+        }
+    </script>
+</body>
+</html>
