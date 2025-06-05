@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>17-pokedex</title>
+     <link rel="stylesheet" href="../css/styles.css">
+     <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f2f5;
+        }
+        
+        .container {
+            width: 600px;
+            margin: 0 auto;
+            background-color: white;
+        }
+        
+        .header {
+            background-color: #ee1515;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            position: relative;
+        }
+        
+        .back-btn {
+            position: absolute;
+            left: 15px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+        }
+        
+        .welcome-screen {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 80vh;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .start-btn {
+            background-color: #ee1515;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            border-radius: 50px;
+            margin-top: 30px;
+            cursor: pointer;
+        }
+        
+        .generation-select {
+            width: 90%;
+            margin: 15px auto;
+            padding: 10px;
+            border-radius: 10px;
+            border: 2px solid #ee1515;
+            font-size: 16px;
+        }
+        
+        .pokemon-list {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 5px;
+            padding: 10px;
+            height: 600px;
+            overflow-y: auto;
+        }
+        
+        .pokemon-card {
+            background-color: #f8f8f8;
+            border-radius: 10px;
+            padding: 10px;
+            text-align: center;
+        }
+        
+        .pokemon-img {
+            width: 80px;
+            height: 80px;
+        }
+        
+        .pokemon-number {
+            color: #666;
+            font-size: 12px;
+        }
+        
+        .pokemon-name {
+            font-weight: bold;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+        
+        .detail-screen {
+            padding: 15px;
+        }
+        
+        .detail-img {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto;
+            display: block;
+        }
+        
+        .detail-name {
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        
+        .detail-number {
+            text-align: center;
+            color: #666;
+            font-size: 18px;
+        }
+        
+        .types {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 15px 0;
+        }
+        
+        .type {
+            padding: 5px 15px;
+            border-radius: 20px;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .stats {
+            margin-top: 20px;
+        }
+        
+        .stat {
+            margin-bottom: 10px;
+        }
+        
+        .stat-name {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .stat-bar {
+            height: 10px;
+            background-color: #ddd;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .stat-progress {
+            height: 100%;
+            background-color: #4CAF50;
+            border-radius: 5px;
+        }
+        
+        .hidden {
+            display: none;
+        }
+
+    </style>
+</head>
+<body class="js"> 
+     <nav>
+        <a href="index.html">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#ffffff" d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg> 
+    
+        </a>
+     </nav>
+     <section>
+    <div class="container">
+        <div id="welcome-screen" class="welcome-screen">
+            <h1>Pokédex</h1>
+            <p>¡Atrapalos Todos!</p>
+            <button class="start-btn" id="start-btn">COMENZAR</button>
+        </div>
+        
+        <div id="main-screen" class="hidden">
+            <div class="header">
+                Pokédex
+            </div>
+            <select class="generation-select" id="generation-select">
+                <option value="1">Generación 1</option>
+                <option value="2">Generación 2</option>
+                <option value="3">Generación 3</option>
+                <option value="4">Generación 4</option>
+                <option value="5">Generación 5</option>
+                <option value="6">Generación 6</option>
+                <option value="7">Generación 7</option>
+                <option value="8">Generación 8</option>
+                <option value="9">Generación 9</option>
+            </select>
+            <div class="pokemon-list" id="pokemon-list">
+            </div>
+        </div>
+        
+        <div id="detail-screen" class="hidden">
+            <div class="header">
+                <button class="back-btn" id="back-btn">←</button>
+                Pokédex
+            </div>
+            <div class="detail-screen">
+                <img class="detail-img" id="detail-img" src="">
+                <div class="detail-name" id="detail-name"></div>
+                <div class="detail-number" id="detail-number"></div>
+                <div class="types" id="types"></div>
+                <div class="stats" id="stats"></div>
+            </div>
+        </div>
+    </div>
+    </section>
+    <script>
+        let generaciones = [
+            {inicio: 1, fin: 151, nombre: "Kanto"},
+            {inicio: 152, fin: 251, nombre: "Johto"},
+            {inicio: 252, fin: 386, nombre: "Hoenn"},
+            {inicio: 387, fin: 493, nombre: "Sinnoh"},
+            {inicio: 494, fin: 649, nombre: "Unova"},
+            {inicio: 650, fin: 721, nombre: "Kalos"},
+            {inicio: 722, fin: 809, nombre: "Alola"},
+            {inicio: 810, fin: 905, nombre: "Galar"},
+            {inicio: 906, fin: 1025, nombre: "Paldea"}
+        ];
+        
+        let tipoColores = {
+            normal: "#A8A878",
+            fire: "#F08030",
+            water: "#6890F0",
+            electric: "#F8D030",
+            grass: "#78C850",
+            ice: "#98D8D8",
+            fighting: "#C03028",
+            poison: "#A040A0",
+            ground: "#E0C068",
+            flying: "#A890F0",
+            psychic: "#F85888",
+            bug: "#A8B820",
+            rock: "#B8A038",
+            ghost: "#705898",
+            dragon: "#7038F8",
+            dark: "#705848",
+            steel: "#B8B8D0",
+            fairy: "#EE99AC"
+        };
+        
+        let welcomeScreen = document.getElementById("welcome-screen");
+        let mainScreen = document.getElementById("main-screen");
+        let detailScreen = document.getElementById("detail-screen");
+        let startBtn = document.getElementById("start-btn");
+        let generationSelect = document.getElementById("generation-select");
+        let pokemonList = document.getElementById("pokemon-list");
+        let backBtn = document.getElementById("back-btn");
+        
+        startBtn.onclick = function() {
+            welcomeScreen.classList.add("hidden");
+            mainScreen.classList.remove("hidden");
+            cargarGeneracion(1);
+        };
+        
+        generationSelect.onchange = function() {
+            let generacion = this.value;
+            cargarGeneracion(generacion);
+        };
+        
+        backBtn.onclick = function() {
+            detailScreen.classList.add("hidden");
+            mainScreen.classList.remove("hidden");
+        };
+        
+        function cargarGeneracion(numero) {
+            let generacion = generaciones[numero - 1];
+            pokemonList.innerHTML = "<p>Cargando...</p>";
+            
+            pokemonList.innerHTML = "";
+            
+            let pokemones = [];
+            for (let i = generacion.inicio; i <= generacion.fin; i++) {
+                pokemones.push(i);
+            }
+            
+            let promises = pokemones.map(id => 
+    fetch("https://pokeapi.co/api/v2/pokemon/" + id)
+        .then(respuesta => respuesta.json())
+          );
+
+                  Promise.all(promises).then(pokemonesData => {
+        pokemonesData.sort((a, b) => a.id - b.id);
+        pokemonesData.forEach(pokemon => {
+            mostrarPokemon(pokemon);
+        });
+    });
+        }
+        
+        function cargarPokemon(id) {
+            fetch("https://pokeapi.co/api/v2/pokemon/" + id)
+                .then(function(respuesta) {
+                    return respuesta.json();
+                })
+                .then(function(pokemon) {
+                    mostrarPokemon(pokemon);
+                });
+        }
+        
+        function mostrarPokemon(pokemon) {
+            let card = document.createElement("div");
+            card.className = "pokemon-card";
+            card.onclick = function() { mostrarDetalle(pokemon); };
+            
+            card.innerHTML = `
+                <img class="pokemon-img" src="${pokemon.sprites.front_default}">
+                <div class="pokemon-number">#${pokemon.id.toString().padStart(3, '0')}</div>
+                <div class="pokemon-name">${formatearNombre(pokemon.name)}</div>
+            `;
+            
+            pokemonList.appendChild(card);
+        }
+        
+        function mostrarDetalle(pokemon) {
+            mainScreen.classList.add("hidden");
+            detailScreen.classList.remove("hidden");
+            
+            document.getElementById("detail-img").src = 
+                pokemon.sprites.other["official-artwork"]?.front_default || 
+                pokemon.sprites.front_default;
+            
+            document.getElementById("detail-name").textContent = formatearNombre(pokemon.name);
+            document.getElementById("detail-number").textContent = "#" + pokemon.id.toString().padStart(3, '0');
+            
+            let typesDiv = document.getElementById("types");
+            typesDiv.innerHTML = "";
+            pokemon.types.forEach(function(tipo) {
+                let tipoDiv = document.createElement("div");
+                tipoDiv.className = "type";
+                tipoDiv.textContent = formatearNombre(tipo.type.name);
+                tipoDiv.style.backgroundColor = tipoColores[tipo.type.name];
+                typesDiv.appendChild(tipoDiv);
+            });
+            
+            let statsDiv = document.getElementById("stats");
+            statsDiv.innerHTML = "";
+            pokemon.stats.forEach(function(stat) {
+                let statDiv = document.createElement("div");
+                statDiv.className = "stat";
+                
+                let statValue = stat.base_stat;
+                let porcentaje = (statValue / 255) * 100;
+                
+                statDiv.innerHTML = `
+                    <div class="stat-name">${formatearNombre(stat.stat.name)}: ${statValue}</div>
+                    <div class="stat-bar">
+                        <div class="stat-progress" style="width: ${porcentaje}%"></div>
+                    </div>
+                `;
+                
+                statsDiv.appendChild(statDiv);
+            });
+        }
+        
+        function formatearNombre(nombre) {
+            return nombre.charAt(0).toUpperCase() + nombre.slice(1);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>16-loops</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        section{
+            ul{
+                display: flex;
+                margin: 0;
+                padding: 0;
+                gap: 0.2rem;
+                justify-content: center;
+                align-items: center;
+                li{
+                    border-radius: 0.2rem;
+                    list-style: none;
+                    background-color: #9d8d34;
+                    color: #fff;
+                    height: 60px;
+                    display: flex;
+                    justify-content: center;
+                    padding-inline: 0.8rem;
+                    align-items: center;
+                    font-size: 0.8rem;
+                    width: 86px;
+                }
+            }
+        }
+    </style>
+</head>
+<body class="js">
+    <nav>
+        <a href="index.html">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#ffffff" d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
+        </a>
+    </nav>
+    <main>
+        <header>
+            <h1>16-loops  </h1>
+            <p>
+                Repeat actions using loops like `for` and `while`.
+            </p>
+        </header>
+        <section>
+            <h3>Loop (for)</h3>
+            <p>
+                <small>
+                    Print even numbers from 0 to 100
+                </small>
+            </p>
+            <ul class="even-numbers"></ul>
+            <h3>Loop (forin)</h3>
+            <p>
+                <small>
+                    Print objects propierties
+                </small>
+            </p>
+            <ul class="props-object"></ul>
+            <h3>Loop (while)</h3>
+            <p>
+                <small>
+                    Print multiples of 5 from 0 to 25
+                </small>
+            </p>
+            <ul class="mult-five"></ul>
+            <h3>Loop (do while)</h3>
+            <p>
+                <small>
+                    Print factorial (N!) of 5
+                </small>
+            </p>
+            <ul class="fact-number"></ul>
+            <h3>(break)</h3>
+            <p>
+                <small>
+                    Fibonacci (10 = 89)
+                </small>
+            </p>
+            <ul class="fibo-sec"></ul>
+        </section>
+    </main>
+    <script>
+        // Elements 
+        const evenNumbers = document.querySelector('.even-numbers');
+        const propsObject = document.querySelector('.props-object');
+        const multFive = document.querySelector('.mult-five');
+        const factNumber = document.querySelector('.fact-number');
+        const fiboSec = document.querySelector('.fibo-sec');
+
+        // Object
+        const games = {
+            name: 'GTA VI',
+            year: 2026,
+            devolper: 'Rockstar Games',
+        }
+
+        // Loop (for)
+        for (let i = 0; i <= 10; i++) {
+            if (i % 2 == 0) {
+            evenNumbers.innerHTML += `<li>${i}</li>`;
+        }
+    }
+
+    // Loop (forin)
+    for(let game in games){
+        propsObject.innerHTML += `<li>${game}: ${games[game]}</li>`;
+    }
+
+    // Loop (while)
+    let i = 0
+    while(i<=25){
+        if (i % 5 == 0) {
+            multFive.innerHTML += `<li>${i}</li>`;
+        }
+        i++
+    }
+    // loop (do while)
+
+    </script>
+</body>
+</html>
