@@ -84,118 +84,99 @@
             color: white;
             }
         </style>
-</head>
-<body class="js">
-    <nav>
-        <a href="index.html">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#ffffff" d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
-        </a>
-    </nav>
-    <main>
-        <h1>22-challenge-baloto</h1>
-        <section>
-            <div class="contenedor">
-                <h1 class="titulo">Baloto 4 Cifras Aleatorio</h1>
-                <h3>Tus números</h3>
-                <div id="usuario">
-                <div class="cuadrado"></div>
-                <div class="cuadrado"></div>
-                <div class="cuadrado"></div>
-                <div class="cuadrado"></div>
-                </div>
-                <button id="jugar">Jugar</button>
-                <h3>Número ganador</h3>
-                <div id="ganador">
-                <div class="cuadrado"></div>
-                <div class="cuadrado"></div>
-                <div class="cuadrado"></div>
-                <div class="cuadrado"></div>
-                </div>
-                <div id="resultado"></div>
-            </div>
-        </section>
-    </main>
-    <script>
-            let numUsuario = '';
-            let jugando = false;
-            let esperandoNuevoJuego = false;
+        </head>
+        <body class="js">
+            <nav>
+                <a href="index.html">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#ffffff" d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
+                </a>
+            </nav>
+            <main>
+                <h1>22-challenge-baloto</h1>
+                <section>
+                    <div class="contenedor">
+                        <h1 class="titulo">Baloto 4 Cifras Aleatorio</h1>
+                        <h3>Tus números</h3>
+                        <div id="usuario">
+                        <div class="cuadrado"></div>
+                        <div class="cuadrado"></div>
+                        <div class="cuadrado"></div>
+                        <div class="cuadrado"></div>
+                        </div>
+                        <button id="jugar">Jugar</button>
+                        <h3>Número ganador</h3>
+                        <div id="ganador">
+                        <div class="cuadrado"></div>
+                        <div class="cuadrado"></div>
+                        <div class="cuadrado"></div>
+                        <div class="cuadrado"></div>
+                        </div>
+                        <div id="resultado"></div>
+                    </div>
+                    <button id="figma-btn" onclick="window.open('https://www.figma.com/design/h26JUumdBZu6LeMk588sMJ/Untitled?t=HNRDbw9bLDaGWWXW-1')">
+                        Ver Figma
+                    </button>
+                </section>
+            </main>
+            <script>
+                const user_squares = document.querySelectorAll('#usuario .cuadrado')
+                const winner_squares = document.querySelectorAll('#ganador .cuadrado')
+                const play_btn = document.getElementById('jugar')
+                const result = document.getElementById('resultado')
 
-            const btnJugar = document.getElementById('jugar');
-            const cuadradosUsuario = document.querySelectorAll('#usuario .cuadrado');
-            const cuadradosGanador = document.querySelectorAll('#ganador .cuadrado');
-            const resultado = document.getElementById('resultado');
-
-            function generarNumero4Cifras() {
-            return Math.floor(1000 + Math.random() * 9000).toString();
-            }
-
-            function mostrarNumero(cuadrados, numero) {
-            for (let i = 0; i < 4; i++) {
-                cuadrados[i].textContent = numero[i];
-                cuadrados[i].classList.remove('ganador');
-            }
-            }
-
-            function limpiarGanador() {
-            for (let i = 0; i < 4; i++) {
-                cuadradosGanador[i].textContent = '';
-                cuadradosGanador[i].classList.remove('ganador');
-            }
-            }
-
-            function iniciarJuego() {
-            // Generar y mostrar nuevos números del usuario
-            numUsuario = generarNumero4Cifras();
-            mostrarNumero(cuadradosUsuario, numUsuario);
-            limpiarGanador();
-            resultado.textContent = '';
-            resultado.className = '';
-            jugando = true;
-            esperandoNuevoJuego = false;
-            btnJugar.textContent = 'Jugar';
-            }
-
-            function jugarBaloto() {
-            if (jugando && !esperandoNuevoJuego) {
-                btnJugar.disabled = true;
-                resultado.textContent = '';
-                resultado.className = '';
-
-                const numGanador = generarNumero4Cifras();
-                limpiarGanador();
-
-                let aciertos = 0;
-                numGanador.split('').forEach((digito, index) => {
-                setTimeout(() => {
-                    cuadradosGanador[index].textContent = digito;
-                    if (digito === numUsuario[index]) {
-                    cuadradosGanador[index].classList.add('ganador');
-                    aciertos++;
-                    }
-                }, index * 500);
-                });
-
-                setTimeout(() => {
-                if (aciertos === 4) {
-                    resultado.textContent = '¡Felicidades! ¡Eres el ganador!';
-                    resultado.className = 'ganador-mensaje';
-                } else {
-                    resultado.textContent = `¡Inténtalo de nuevo!`;
-                    resultado.className = 'perdedor-mensaje';
+                function shuffle(array) {
+                return array.sort(() => Math.random() - 0.5)
                 }
-                btnJugar.textContent = 'Jugar de nuevo';
-                btnJugar.disabled = false;
-                jugando = false;
-                esperandoNuevoJuego = true;
-                }, 4 * 500 + 500);
-            } else if (esperandoNuevoJuego) {
-                iniciarJuego();
-            }
-            }
 
-            // Inicializar con números aleatorios al cargar
-            window.onload = iniciarJuego;
-            btnJugar.addEventListener('click', jugarBaloto);
-    </script>
-</body>
-</html>
+                function get_four_digits() {
+                return shuffle([0,1,2,3,4,5,6,7,8,9]).slice(0,4)
+                }
+
+                play_btn.addEventListener('click', () => {
+                play_btn.disabled = true
+                result.textContent = ''
+                result.className = ''
+
+                const user_numbers = get_four_digits()
+                user_squares.forEach((sq, i) => {
+                    sq.textContent = user_numbers[i]
+                    sq.classList.remove('ganador')
+                })
+
+                const winner_numbers = get_four_digits()
+                let matches = 0
+
+                winner_squares.forEach((sq, i) => {
+                    setTimeout(() => {
+                    sq.textContent = winner_numbers[i]
+                    sq.classList.remove('ganador')
+                    if (winner_numbers[i] === user_numbers[i]) {
+                        sq.classList.add('ganador')
+                        matches++
+                    }
+                    }, i * 500)
+                })
+
+                setTimeout(() => {
+                    result.textContent = matches === 4 ? 'you win!' : 'try again!'
+                    result.className = matches === 4 ? 'ganador-mensaje' : 'perdedor-mensaje'
+                    play_btn.disabled = false
+                }, 2500)
+                })
+
+                window.onload = () => {
+                const user_numbers = get_four_digits()
+                user_squares.forEach((sq, i) => {
+                    sq.textContent = user_numbers[i]
+                    sq.classList.remove('ganador')
+                })
+                winner_squares.forEach(sq => {
+                    sq.textContent = ''
+                    sq.classList.remove('ganador')
+                })
+                result.textContent = ''
+                result.className = ''
+                }
+            </script>
+        </body>
+        </html>
