@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=600, initial-scale=1.0">
+    <title>Space Invaders Mejorado</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #000;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+            text-align: center;
+        }
+        #game-container {
+            position: relative;
+            width: 600px;
+            height: 700px;
+            margin: 20px auto;
+            border: 2px solid #0f0;
+            background-color: #000;
+            overflow: hidden;
+            background-image: url('images/bg.svg');
+            background-size: cover;
+        }
+        #stats {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            font-size: 20px;
+            z-index: 5;
+        }
+        #lives-img {
+            height: 120px;
+        }
+        #player {
+            position: absolute;
+            width: 120px;
+            height: 80px;
+            left: 240px;
+            bottom: 20px;
+            z-index: 2;
+        }
+        .enemy {
+            position: absolute;
+            width: 70px;
+            height: 70px;
+            z-index: 2;
+        }
+        .bullet, .enemy-bullet {
+            position: absolute;
+            width: 1px;   /* Hitbox REAL aún más pequeña */
+            height: 6px;
+            z-index: 3;
+            overflow: visible;
+        }
+        .bullet-img, .enemy-bullet-img {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 120px;
+            height: 240px;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            user-select: none;
+        }
+        .explosion {
+            position: absolute;
+            width: 70px;
+            height: 70px;
+            z-index: 10;
+            pointer-events: none;
+        }
+        .clock {
+            position: absolute;
+            width: 32px;
+            height: 32px;
+            z-index: 3;
+        }
+        #game-over {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 48px;
+            color: #f00;
+            display: none;
+            z-index: 20;
+        }
+        #start-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 30;
+        }
+        #start-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 24px;
+            background-color: #0f0;
+            color: #000;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="game-container">
+        <div id="stats">
+            <img id="lives-img" src="images/corazones3.svg" alt="Vidas">
+            <div>Tiempo: <span id="time">45</span>s</div>
+            <div>Puntos: <span id="score">0</span></div>
+        </div>
+        <img id="player" src="images/naveNormal.svg" alt="Nave">
+        <div id="game-over">GAME OVER</div>
+        <div id="start-screen">
+            <h1>SPACE INVADERS</h1>
+            <p>Usa las flechas para moverte (mantén presionado)</p>
+            <p>ESPACIO para disparar</p>
+            <p>Evita los disparos enemigos y recoge el reloj para ganar tiempo</p>
+            <button id="start-button">COMENZAR</button>
+        </div>
+    </div>
+    <script>
+        const gameContainer = document.getElementById('game-container');
+        const player = document.getElementById('player');
+        const livesImg = document.getElementById('lives-img');
+        const timeDisplay = document.getElementById('time');
+        const scoreDisplay = document.getElementById('score');
+        const gameOverDisplay = document.getElementById('game-over');
+        const startScreen = document.getElementById('start-screen');
+        const startButton = document.getElementById('start-button');
+
+        let playerX = 240;
+        let playerSpeed = 5;
+        let bullets = [];
+        let enemies = [];
+        let enemyBullets = [];
+        let clocks = [];
+        let lives = 3;
+        let score = 0;
+        let timeLeft = 45;
+        let gameInterval;
+        let enemyInterval;
+        let clockInterval;
+        let enemyShootInterval;
+        let isGameOver = false;
+        let isGameStarted = false;
+        let playerState = 'normal';
+        let maxEnemyBullets = 4;
+
+        let enemyIntervalTime = 2000;
+        let enemyShootIntervalTime = 1800;
+        let enemyBulletSpeed = 4;
+        let difficultyTimer = 0;
+
+        let lastEnemyX = null;
+        const minEnemyDistance = 180;
+
+        function updateLivesImg() {
+            if (lives === 3) livesImg.src = "images/corazones3.svg";
+            else if (lives === 2) livesImg.src = "images/corazones2.svg";
+            else if (lives === 1) livesImg.src = "images/corazones1.svg";
+            else livesImg.src = "images/sinCorazones.svg";
+        }
+
+        function setPlayerImage(state) {
+            if (state === 'normal') player.src = 'images/naveNormal.svg';
+            else if (state === 'damaged') player.src = 'images/naveDañada.svg';
+            else if (state === 'exploding') player.src = 'images/explosionNave.svg';
+        }
+
+        function startGame() {
+            if (isGameStarted) return;
+            isGameStarted = true;
+            startScreen.style.display = 'none';
+            lives = 3;
+            score = 0;
+            timeLeft = 45;
+            isGameOver = false;
+            gameOverDisplay.style.display = 'none';
+            playerX = 240;
+            playerState = 'normal';
+            setPlayerImage('normal');
+            updateLivesImg();
+            player.style.left = playerX + 'px';
+
+            bullets.forEach(bullet => bullet.remove());
+            enemies.forEach(enemy => enemy.el.remove());
+            enemyBullets.forEach(bullet => bullet.el.remove());
+            clocks.forEach(clock => clock.remove());
+            bullets = [];
+            enemies = [];
+            enemyBullets = [];
+            clocks = [];
+
+            scoreDisplay.textContent = score;
+            timeDisplay.textContent = timeLeft;
+
+            enemyIntervalTime = 2000;
+            enemyShootIntervalTime = 1800;
+            enemyBulletSpeed = 4;
+            difficultyTimer = 0;
+            lastEnemyX = null;
+
+            gameInterval = setInterval(updateGame, 1000/60);
+            enemyInterval = setInterval(createEnemy, enemyIntervalTime);
+            clockInterval = setInterval(createClock, 12000);
+            enemyShootInterval = setInterval(enemyShoot, enemyShootIntervalTime);
+
+            const timer = setInterval(() => {
+                timeLeft--;
+                timeDisplay.textContent = timeLeft;
+                difficultyTimer++;
+                if (timeLeft <= 0 || isGameOver) {
+                    clearInterval(timer);
+                    endGame();
+                }
+                if (difficultyTimer % 60 === 0) {
+                    increaseDifficulty();
+                }
+            }, 1000);
+        }
+
+        function increaseDifficulty() {
+            enemyIntervalTime = Math.max(800, enemyIntervalTime - 200);
+            clearInterval(enemyInterval);
+            enemyInterval = setInterval(createEnemy, enemyIntervalTime);
+
+            enemyShootIntervalTime = Math.max(700, enemyShootIntervalTime - 200);
+            clearInterval(enemyShootInterval);
+            enemyShootInterval = setInterval(enemyShoot, enemyShootIntervalTime);
+
+            enemyBulletSpeed = Math.min(12, enemyBulletSpeed + 1);
+        }
+
+        function updateGame() {
+            if (keysPressed.ArrowLeft) {
+                playerX = Math.max(0, playerX - playerSpeed);
+            }
+            if (keysPressed.ArrowRight) {
+                playerX = Math.min(gameContainer.offsetWidth - player.width, playerX + playerSpeed);
+            }
+            player.style.left = playerX + 'px';
+
+            bullets.forEach((bullet, index) => {
+                bullet.style.top = (parseInt(bullet.style.top) - 10) + 'px';
+                if (parseInt(bullet.style.top) < -8) {
+                    bullet.remove();
+                    bullets.splice(index, 1);
+                } else {
+                    enemies.forEach((enemy, enemyIndex) => {
+                        if (checkCollisionSmallHitbox(bullet, enemy.el)) {
+                            createExplosion(enemy.el.offsetLeft, enemy.el.offsetTop, 'images/explosionEnemigo.svg');
+                            bullet.remove();
+                            enemy.el.remove();
+                            bullets.splice(index, 1);
+                            enemies.splice(enemyIndex, 1);
+                            score += 10;
+                            scoreDisplay.textContent = score;
+                        }
+                    });
+                }
+            });
+
+            enemyBullets.forEach((bullet, index) => {
+                bullet.el.style.top = (parseInt(bullet.el.style.top) + enemyBulletSpeed) + 'px';
+                if (parseInt(bullet.el.style.top) > gameContainer.offsetHeight) {
+                    bullet.el.remove();
+                    enemyBullets.splice(index, 1);
+                } else {
+                    if (checkCollisionSmallHitbox(bullet.el, player)) {
+                        if (playerState === 'normal') {
+                            playerState = 'damaged';
+                            setPlayerImage('damaged');
+                            setTimeout(() => {
+                                playerState = 'normal';
+                                setPlayerImage('normal');
+                            }, 600);
+                            lives--;
+                            updateLivesImg();
+                            if (lives <= 0) {
+                                playerState = 'exploding';
+                                setPlayerImage('exploding');
+                                setTimeout(() => {
+                                    endGame();
+                                }, 900);
+                            }
+                        }
+                        createExplosion(playerX, player.offsetTop, 'images/explosionNave.svg');
+                        bullet.el.remove();
+                        enemyBullets.splice(index, 1);
+                    }
+                }
+            });
+
+            enemies.forEach((enemy, index) => {
+                enemy.el.style.top = (parseInt(enemy.el.style.top) + 2) + 'px';
+                if (parseInt(enemy.el.style.top) > gameContainer.offsetHeight) {
+                    enemy.el.remove();
+                    enemies.splice(index, 1);
+                }
+                if (checkCollision(enemy.el, player)) {
+                    createExplosion(enemy.el.offsetLeft, enemy.el.offsetTop, 'images/explosionEnemigo.svg');
+                    enemy.el.remove();
+                    enemies.splice(index, 1);
+                    if (playerState === 'normal') {
+                        playerState = 'damaged';
+                        setPlayerImage('damaged');
+                        setTimeout(() => {
+                            playerState = 'normal';
+                            setPlayerImage('normal');
+                        }, 600);
+                        lives--;
+                        updateLivesImg();
+                        if (lives <= 0) {
+                            playerState = 'exploding';
+                            setPlayerImage('exploding');
+                            setTimeout(() => {
+                                endGame();
+                            }, 900);
+                        }
+                    }
+                }
+            });
+
+            clocks.forEach((clock, index) => {
+                clock.style.top = (parseInt(clock.style.top) + 3) + 'px';
+                if (parseInt(clock.style.top) > gameContainer.offsetHeight) {
+                    clock.remove();
+                    clocks.splice(index, 1);
+                }
+                if (checkCollision(clock, player)) {
+                    timeLeft += 15;
+                    timeDisplay.textContent = timeLeft;
+                    clock.remove();
+                    clocks.splice(index, 1);
+                }
+            });
+        }
+
+        function createEnemy() {
+            if (isGameOver) return;
+            let x;
+            let attempts = 0;
+            do {
+                x = Math.random() * (gameContainer.offsetWidth - 70);
+                attempts++;
+            } while (lastEnemyX !== null && Math.abs(x - lastEnemyX) < minEnemyDistance && attempts < 20);
+            lastEnemyX = x;
+
+            const enemy = document.createElement('img');
+            enemy.className = 'enemy';
+            enemy.src = 'images/enemigo.svg';
+            enemy.style.left = x + 'px';
+            enemy.style.top = '0px';
+            gameContainer.appendChild(enemy);
+            enemies.push({ el: enemy });
+        }
+
+        function enemyShoot() {
+            if (isGameOver) return;
+            if (enemyBullets.length >= maxEnemyBullets) return;
+            if (enemies.length === 0) return;
+            let shooters = [];
+            let available = enemies.length;
+            let toShoot = Math.min(4 - enemyBullets.length, available);
+            while (shooters.length < toShoot) {
+                let idx = Math.floor(Math.random() * enemies.length);
+                if (!shooters.includes(idx)) shooters.push(idx);
+            }
+            shooters.forEach(idx => {
+                let enemy = enemies[idx].el;
+                const bullet = document.createElement('div');
+                bullet.className = 'enemy-bullet';
+                bullet.style.left = (enemy.offsetLeft + 34) + 'px';
+                bullet.style.top = (enemy.offsetTop + 70) + 'px';
+
+                const bulletImg = document.createElement('img');
+                bulletImg.className = 'enemy-bullet-img';
+                bulletImg.src = 'images/bala.svg';
+
+                bullet.appendChild(bulletImg);
+                gameContainer.appendChild(bullet);
+                enemyBullets.push({ el: bullet });
+            });
+        }
+
+        function shoot() {
+            if (isGameOver) return;
+            const bullet = document.createElement('div');
+            bullet.className = 'bullet';
+            bullet.style.left = (playerX + 59) + 'px';
+            bullet.style.top = (gameContainer.offsetHeight - 120) + 'px';
+
+            const bulletImg = document.createElement('img');
+            bulletImg.className = 'bullet-img';
+            bulletImg.src = 'images/bala.svg';
+
+            bullet.appendChild(bulletImg);
+            gameContainer.appendChild(bullet);
+            bullets.push(bullet);
+        }
+
+        function createClock() {
+            if (isGameOver) return;
+            const clock = document.createElement('img');
+            clock.className = 'clock';
+            clock.src = 'images/reloj.svg';
+            clock.style.left = Math.random() * (gameContainer.offsetWidth - 32) + 'px';
+            clock.style.top = '0px';
+            gameContainer.appendChild(clock);
+            clocks.push(clock);
+        }
+
+        function createExplosion(x, y, img) {
+            const explosion = document.createElement('img');
+            explosion.className = 'explosion';
+            explosion.src = img;
+            explosion.style.left = x + 'px';
+            explosion.style.top = y + 'px';
+            gameContainer.appendChild(explosion);
+            setTimeout(() => explosion.remove(), 500);
+        }
+
+        function checkCollision(a, b) {
+            const rect1 = a.getBoundingClientRect();
+            const rect2 = b.getBoundingClientRect();
+            return rect1.left < rect2.right &&
+                   rect1.right > rect2.left &&
+                   rect1.top < rect2.bottom &&
+                   rect1.bottom > rect2.top;
+        }
+
+        // Colisión especial: solo el centro del div de la bala cuenta como hitbox
+        function checkCollisionSmallHitbox(bullet, target) {
+            const bulletRect = bullet.getBoundingClientRect();
+            const targetRect = target.getBoundingClientRect();
+            const bx = bulletRect.left + bulletRect.width / 2;
+            const by = bulletRect.top + bulletRect.height / 2;
+            return (
+                bx >= targetRect.left &&
+                bx <= targetRect.right &&
+                by >= targetRect.top &&
+                by <= targetRect.bottom
+            );
+        }
+
+        function endGame() {
+            isGameOver = true;
+            clearInterval(gameInterval);
+            clearInterval(enemyInterval);
+            clearInterval(clockInterval);
+            clearInterval(enemyShootInterval);
+            gameOverDisplay.style.display = 'block';
+        }
+
+        let keysPressed = {
+            ArrowLeft: false,
+            ArrowRight: false
+        };
+
+        document.addEventListener('keydown', (e) => {
+            if (!isGameStarted) return;
+            switch(e.code) {
+                case 'ArrowLeft':
+                    keysPressed.ArrowLeft = true;
+                    break;
+                case 'ArrowRight':
+                    keysPressed.ArrowRight = true;
+                    break;
+                case 'Space':
+                    shoot();
+                    break;
+            }
+        });
+        document.addEventListener('keyup', (e) => {
+            switch(e.code) {
+                case 'ArrowLeft':
+                    keysPressed.ArrowLeft = false;
+                    break;
+                case 'ArrowRight':
+                    keysPressed.ArrowRight = false;
+                    break;
+            }
+        });
+
+        startButton.addEventListener('click', startGame);
+    </script>
+</body>
+</html>
