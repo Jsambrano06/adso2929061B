@@ -52,7 +52,7 @@
         }
         .bullet, .enemy-bullet {
             position: absolute;
-            width: 1px;   /* Hitbox REAL aún más pequeña */
+            width: 1px;
             height: 6px;
             z-index: 3;
             overflow: visible;
@@ -442,7 +442,7 @@
                    rect1.bottom > rect2.top;
         }
 
-        // Colisión especial: solo el centro del div de la bala cuenta como hitbox
+
         function checkCollisionSmallHitbox(bullet, target) {
             const bulletRect = bullet.getBoundingClientRect();
             const targetRect = target.getBoundingClientRect();
