@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>32 - OnEnterFrame</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <style>
+    div.chimp {
+        background: url('images/bleach-sprite.png') no-repeat;
+        background-position: 0 0;
+        border-radius: 0.4rem;
+        height: 270px;
+        margin: 2rem auto;
+        width: 360px;
+        border: 2px solid #a39536;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        overflow: hidden;
+    }
+    div.controls {
+        margin: 0 auto;
+        width: 338px;
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-top: 1.5rem;
+    }
+    div.controls button {
+        cursor: pointer;
+        border: none;
+        border-radius: 0.2rem;
+        color: #fff;
+        background-color: #a39536;
+        padding: 0.6rem 0.8rem;
+        width: auto;
+        min-width: 80px;
+        transition: all 0.2s ease-in;
+        font-weight: bold;
+    }
+    div.controls button:hover {
+        transform: scale(1.1);
+        background-color: #bfae3f;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+    main {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 2rem;
+        background: rgba(0, 0, 0, 0.7);
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    }
+    header {
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+    h1 {
+        color: #a39536;
+        margin-bottom: 0.5rem;
+    }
+    p {
+        color: #ddd;
+    }
+    nav {
+        margin-bottom: 2rem;
+        padding: 0 2rem;
+    }
+    nav a {
+        display: inline-block;
+        padding: 8px;
+        background: rgba(163, 149, 54, 0.2);
+        border-radius: 50%;
+        transition: background 0.3s;
+    }
+    nav a:hover {
+        background: rgba(163, 149, 54, 0.4);
+    }
+    .info-box {
+        background: rgba(163, 149, 54, 0.1);
+        padding: 15px;
+        border-radius: 5px;
+        margin-top: 20px;
+        font-size: 14px;
+    }
+</style>
+</head>
+<body class="js">
+    <nav>
+        <a href="index.html">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#ffffff" d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
+        </a>
+    </nav>
+    <main>
+        <header>
+            <h1>32 - OnEnterFrame</h1>
+            <p>
+                Execute code on each frame for animations.
+            </p>
+        </header>
+        <section>
+        <div class="chimp"></div>
+        <div class="controls">
+            <button class="idle">Idle</button>
+            <button class="walk">Walk</button>
+            <button class="run">Run</button>
+            <button class="sleep">Sleep</button>
+            <button class="attack">Attack</button>
+        </div>
+        <div class="info-box">
+            <p><strong>Nota:</strong> Esta es una demostración con un sprite sheet de ejemplo. Para ver la animación correctamente, necesitas reemplazar la URL con tu archivo bleach-sprite.png real.</p>
+            <p>El sprite sheet debe estar organizado con cada animación en una fila diferente:</p>
+            <ul>
+                <li>Fila 1: Idle (5 frames)</li>
+                <li>Fila 2: Walk (6 frames)</li>
+                <li>Fila 3: Run (8 frames)</li>
+                <li>Fila 4: Sleep (4 frames)</li>
+                <li>Fila 5: Attack (10 frames)</li>
+            </ul>
+        </div>
+        </section>
+    </main>
+    <script>
+        //Elements
+        const chimp   = document.querySelector('.chimp')
+        const idle   = document.querySelector('.idle')
+        const walk   = document.querySelector('.walk')
+        const run    = document.querySelector('.run')
+        const sleep  = document.querySelector('.sleep')
+        const attack = document.querySelector('.attack')
+
+        // Sprite Config
+        let config = {
+            width: 360,
+            height: 270,
+            fps: 10, // Velocidad más lenta para mejor visualización
+            frames: 5,
+            current: 0,
+            lastTime: 0,
+            currentAction: 'idle',
+            animating: true
+        }
+
+        // Reset animation when changing action
+        function resetAnimation() {
+            config.current = 0;
+            updateSpritePosition();
+        }
+
+        // Update sprite position
+        function updateSpritePosition() {
+            chimp.style.backgroundPositionX = `-${config.current * config.width}px`;
+            chimp.style.backgroundPositionY = getBackgroundPositionY();
+        }
+
+        // Get background Y position based on current action
+        function getBackgroundPositionY() {
+            switch(config.currentAction) {
+                case 'idle': return '0';
+                case 'walk': return '-270px';
+                case 'run': return '-540px';
+                case 'sleep': return '-810px';
+                case 'attack': return '-1080px';
+                default: return '0';
+            }
+        }
+
+        // Set animation action
+        function setAnimation(action, frames, yPosition) {
+            config.frames = frames;
+            config.currentAction = action;
+            resetAnimation();
+        }
+
+        // Events
+        idle.addEventListener('click', () => setAnimation('idle', 5, '0'));
+        walk.addEventListener('click', () => setAnimation('walk', 6, '-270px'));
+        run.addEventListener('click', () => setAnimation('run', 8, '-540px'));
+        sleep.addEventListener('click', () => setAnimation('sleep', 4, '-810px'));
+        attack.addEventListener('click', () => setAnimation('attack', 10, '-1080px'));
+
+        // On Enter Frame
+        function animateChimp(timestamp) {
+            if (!config.animating) {
+                requestAnimationFrame(animateChimp);
+                return;
+            }
+            
+            if(timestamp - config.lastTime > 1000 / config.fps) {
+                config.current = (config.current + 1) % config.frames;
+                updateSpritePosition();
+                config.lastTime = timestamp;
+            }
+            requestAnimationFrame(animateChimp);
+        }
+        
+        // Start animation
+        requestAnimationFrame(animateChimp);
+        
+        // Initialize
+        updateSpritePosition();
+    </script>
+</body>
+</html>
