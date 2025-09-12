@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Memory Game</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background: #222;
+      color: #fff;
+    }
+    .game-container {
+      margin: 20px auto;
+      height: 45rem;
+      max-width: 420px;
+      padding: 15px;
+      border-radius: 12px;
+      background: url("images/fondo.png");
+      background-size: cover;
+      background-position: center;
+    }
+    .score {
+      display: flex;
+      justify-content: space-around;
+      margin: 100px 10px 0;
+      font-weight: bold;
+      font-size: 18px;
+    }
+    .grid {
+      display: grid;
+      width: auto;
+      padding: 10px;
+      grid-template-columns: repeat(3, 100px);
+      grid-gap: 12px;
+      justify-content: center;
+      margin: 20px 0;
+      background: url("images/transparente.png") no-repeat center;
+      background-size: cover;
+    }
+
+    .card {
+      width: 100px;
+      height: 100px;
+      perspective: 1000px;
+      cursor: pointer;
+    }
+    .card-inner {
+      width: 100px;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.6s;
+    }
+    .card.flipped .card-inner {
+      transform: rotateY(180deg);
+    }
+    .card-front, .card-back {
+      position: absolute;
+      width: 100px;
+      height: 100%;
+      border-radius: 8px;
+      backface-visibility: hidden;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+    }
+    .card-front {
+      transform: rotateY(180deg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+    }
+    .card-front img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+    .card-back {
+      background: url("images/back.png") no-repeat center/cover;
+    }
+    button {
+      padding: 10px 15px;
+      font-size: 16px;
+      border: none;
+      background: #eee;
+      color: #333;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    /* Mensaje de felicitación */
+    .message {
+      display: none;
+      margin-top: 20px;
+      font-size: 20px;
+      font-weight: bold;
+      color: #ffd700;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.8); }
+      to { opacity: 1; transform: scale(1); }
+    }
+  </style>
+</head>
+<body class="jquery">
+  <div class="game-container">
+
+    <div class="score">
+      <span>Movimientos: <span id="moves">0</span></span>
+      <span>Tiempo: <span id="time">0</span> s</span>
+    </div>
+
+    <div class="grid"></div>
+
+    <button id="restart">Reiniciar</button>
+
+    <!-- Mensaje de felicitación -->
+    <div class="message" id="message">🎉 ¡Felicidades, completaste el juego! 🎉</div>
+  </div>
+
+  <script src="js/jquery-3.7.1.min.js"></script>
+  <script>
+    $(document).ready(function(){
+
+      var icons = ["python.png","java.png","cpp.png","php.png","swift.png","perl.png"];
+      var cards = icons.concat(icons);
+
+      cards.sort(function(){ return 0.5 - Math.random() });
+
+      $.each(cards, function(i, img){
+        $(".grid").append(
+          '<div class="card" data-name="'+img+'">'+
+            '<div class="card-inner">'+
+              '<div class="card-front"><img src="images/'+img+'" alt=""></div>'+
+              '<div class="card-back"></div>'+
+            '</div>'+
+          '</div>'
+        );
+      });
+
+      var flipped = [];
+      var lock = false;
+      var moves = 0;
+      var time = 0;
+      var timer = null;
+      var matches = 0; // 👈 Contador de pares encontrados
+      var totalPairs = icons.length;
+
+      function startTimer(){
+        if(timer === null){
+          timer = setInterval(function(){
+            time++;
+            $("#time").text(time);
+          },1000);
+        }
+      }
+
+      $(".card").click(function(){
+        startTimer();
+
+        if(lock) return;
+        if($(this).hasClass("flipped")) return;
+
+        $(this).addClass("flipped");
+        flipped.push($(this));
+
+        if(flipped.length === 2){
+          moves++;
+          $("#moves").text(moves);
+
+          var card1 = flipped[0].data("name");
+          var card2 = flipped[1].data("name");
+
+          if(card1 === card2){
+            matches++; // 👈 sumamos un par encontrado
+            flipped = [];
+
+            // 👇 Verificar si ya ganó
+            if(matches === totalPairs){
+              clearInterval(timer);
+              $("#message").fadeIn();
+            }
+          }else{
+            lock = true;
+            setTimeout(function(){
+              flipped[0].removeClass("flipped");
+              flipped[1].removeClass("flipped");
+              flipped = [];
+              lock = false;
+            },800);
+          }
+        }
+      });
+
+      $("#restart").click(function(){
+        location.reload();
+      });
+
+    });
+  </script>
+</body>
+</html>
