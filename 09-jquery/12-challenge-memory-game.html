@@ -11,6 +11,7 @@
       background: #222;
       color: #fff;
     }
+
     .game-container {
       margin: 20px auto;
       height: 45rem;
@@ -21,6 +22,7 @@
       background-size: cover;
       background-position: center;
     }
+
     .score {
       display: flex;
       justify-content: space-around;
@@ -28,6 +30,7 @@
       font-weight: bold;
       font-size: 18px;
     }
+
     .grid {
       display: grid;
       width: auto;
@@ -46,6 +49,7 @@
       perspective: 1000px;
       cursor: pointer;
     }
+
     .card-inner {
       width: 100px;
       height: 100%;
@@ -53,9 +57,11 @@
       transform-style: preserve-3d;
       transition: transform 0.6s;
     }
+
     .card.flipped .card-inner {
       transform: rotateY(180deg);
     }
+
     .card-front, .card-back {
       position: absolute;
       width: 100px;
@@ -64,6 +70,7 @@
       backface-visibility: hidden;
       box-shadow: 0 2px 6px rgba(0,0,0,0.4);
     }
+
     .card-front {
       transform: rotateY(180deg);
       display: flex;
@@ -71,15 +78,18 @@
       justify-content: center;
       background: transparent;
     }
+
     .card-front img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       border-radius: 8px;
     }
+
     .card-back {
       background: url("images/back.png") no-repeat center/cover;
     }
+
     button {
       padding: 10px 15px;
       font-size: 16px;
@@ -90,7 +100,6 @@
       cursor: pointer;
     }
 
-    /* Mensaje de felicitación */
     .message {
       display: none;
       margin-top: 20px;
@@ -107,8 +116,8 @@
   </style>
 </head>
 <body class="jquery">
-  <div class="game-container">
 
+  <div class="game-container">
     <div class="score">
       <span>Movimientos: <span id="moves">0</span></span>
       <span>Tiempo: <span id="time">0</span> s</span>
@@ -118,89 +127,97 @@
 
     <button id="restart">Reiniciar</button>
 
-    <!-- Mensaje de felicitación -->
     <div class="message" id="message">🎉 ¡Felicidades, completaste el juego! 🎉</div>
   </div>
 
   <script src="js/jquery-3.7.1.min.js"></script>
-  <script>
-    $(document).ready(function(){
+<script>
+  $(document).ready(function(){
 
-      var icons = ["python.png","java.png","cpp.png","php.png","swift.png","perl.png"];
-      var cards = icons.concat(icons);
+    var icons = ["python.png","java.png","cpp.png","php.png","swift.png","perl.png"];
+    var cards = icons.concat(icons);
 
-      cards.sort(function(){ return 0.5 - Math.random() });
+    cards.sort(function(){ return 0.5 - Math.random() });
 
-      $.each(cards, function(i, img){
-        $(".grid").append(
-          '<div class="card" data-name="'+img+'">'+
-            '<div class="card-inner">'+
-              '<div class="card-front"><img src="images/'+img+'" alt=""></div>'+
-              '<div class="card-back"></div>'+
-            '</div>'+
-          '</div>'
-        );
-      });
+    $.each(cards, function(i, img){
+      $(".grid").append(
+        '<div class="card" data-name="'+img+'">'+
+          '<div class="card-inner">'+
+            '<div class="card-front"><img src="images/'+img+'" alt=""></div>'+
+            '<div class="card-back"></div>'+
+          '</div>'+
+        '</div>'
+      );
+    });
 
-      var flipped = [];
-      var lock = false;
-      var moves = 0;
-      var time = 0;
-      var timer = null;
-      var matches = 0; // 👈 Contador de pares encontrados
-      var totalPairs = icons.length;
+    // 👇 Mostramos todas las cartas al principio
+    setTimeout(function(){
+      $(".card").addClass("flipped");
 
-      function startTimer(){
-        if(timer === null){
-          timer = setInterval(function(){
-            time++;
-            $("#time").text(time);
-          },1000);
+      setTimeout(function(){
+        $(".card").removeClass("flipped");
+        lock = false; 
+      }, 1000);
+    }, 100);
+
+    var flipped = [];
+    var lock = true;
+    var moves = 0;
+    var time = 0;
+    var timer = null;
+    var matches = 0;
+    var totalPairs = icons.length;
+
+    function startTimer(){
+      if(timer === null){
+        timer = setInterval(function(){
+          time++;
+          $("#time").text(time);
+        },1000);
+      }
+    }
+
+    $(".card").click(function(){
+      if(lock) return;
+      if($(this).hasClass("flipped")) return;
+
+      startTimer();
+
+      $(this).addClass("flipped");
+      flipped.push($(this));
+
+      if(flipped.length === 2){
+        moves++;
+        $("#moves").text(moves);
+
+        var card1 = flipped[0].data("name");
+        var card2 = flipped[1].data("name");
+
+        if(card1 === card2){
+          matches++;
+          flipped = [];
+
+          if(matches === totalPairs){
+            clearInterval(timer);
+            $("#message").fadeIn();
+          }
+        } else {
+          lock = true;
+          setTimeout(function(){
+            flipped[0].removeClass("flipped");
+            flipped[1].removeClass("flipped");
+            flipped = [];
+            lock = false;
+          },800);
         }
       }
-
-      $(".card").click(function(){
-        startTimer();
-
-        if(lock) return;
-        if($(this).hasClass("flipped")) return;
-
-        $(this).addClass("flipped");
-        flipped.push($(this));
-
-        if(flipped.length === 2){
-          moves++;
-          $("#moves").text(moves);
-
-          var card1 = flipped[0].data("name");
-          var card2 = flipped[1].data("name");
-
-          if(card1 === card2){
-            matches++; // 👈 sumamos un par encontrado
-            flipped = [];
-
-            // 👇 Verificar si ya ganó
-            if(matches === totalPairs){
-              clearInterval(timer);
-              $("#message").fadeIn();
-            }
-          }else{
-            lock = true;
-            setTimeout(function(){
-              flipped[0].removeClass("flipped");
-              flipped[1].removeClass("flipped");
-              flipped = [];
-              lock = false;
-            },800);
-          }
-        }
-      });
-
-      $("#restart").click(function(){
-        location.reload();
-      });
-
     });
-  </script>
+
+    $("#restart").click(function(){
+      location.reload();
+    });
+
+  });
+</script>
 </body>
 </html>
