@@ -1,33 +1,51 @@
 <?php
 
-    $tittle = "31 - Send Mail";
-    $descripcion = "Learn how to send emails in PHP.";
+$tittle = "31 - Send Mail (Example)";
+$descripcion = "This is a local simulation of sending emails in PHP.";
 
 include 'template/header.php';
-    echo '<section>';
 
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        $to = $_POST['to'];
-        $subject = $_POST['subject'];
-        $message = $_POST['message'];
-        $headers = "From: webmaster@example.com";
+echo '<section>';
+echo '<h2>Send an Email (Simulated)</h2>';
 
-        if (mail($to, $subject, $message, $headers)) {
-            echo "Email sent successfully!";
-        } else {
-            echo "Failed to send email.";
-        }
+// Procesar el formulario al hacer POST
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $to = trim($_POST['to']);
+    $subject = trim($_POST['subject']);
+    $message = trim($_POST['message']);
+
+    // Validar campos
+    if (empty($to) || empty($subject) || empty($message)) {
+        echo "<p style='color:red;'>All fields are required.</p>";
+    } elseif (!filter_var($to, FILTER_VALIDATE_EMAIL)) {
+        echo "<p style='color:red;'>Invalid email address.</p>";
+    } else {
+        // SIMULACIÓN DEL ENVÍO
+        echo "<p style='color:green;'>✅ Email simulated successfully! (This is a local test, no email was actually sent.)</p>";
+
+        // Mostrar los datos como ejemplo
+        echo "<h3>Message Preview:</h3>";
+        echo "<p><strong>To:</strong> " . htmlspecialchars($to) . "</p>";
+        echo "<p><strong>Subject:</strong> " . htmlspecialchars($subject) . "</p>";
+        echo "<p><strong>Message:</strong><br>" . nl2br(htmlspecialchars($message)) . "</p>";
     }
+}
 
-    echo '<form action="" method="post">';
-    echo '<input type="email" name="to" placeholder="Recipient Email" required>';
-    echo '<input type="text" name="subject" placeholder="Subject" required>';
-    echo '<textarea name="message" placeholder="Message" required></textarea>';
-    echo '<input type="submit" value="Send Email">';
-    echo '</form>';
+// Mostrar el formulario
+echo '<form action="" method="post">';
+echo '<label for="to">To (email):</label><br>';
+echo '<input type="email" name="to" id="to" placeholder="Recipient Email" required><br><br>';
 
+echo '<label for="subject">Subject:</label><br>';
+echo '<input type="text" name="subject" id="subject" placeholder="Subject" required><br><br>';
 
-    echo '</section>';
+echo '<label for="message">Message:</label><br>';
+echo '<textarea name="message" id="message" placeholder="Write your message here..." required></textarea><br><br>';
 
-include 'template/footer.php'; ?>
+echo '<input type="submit" value="Simulate Send">';
+echo '</form>';
 
+echo '</section>';
+
+include 'template/footer.php';
+?>
