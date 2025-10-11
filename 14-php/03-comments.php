@@ -11,8 +11,8 @@ include 'template/header.php';
 
     /*
     Multi-line comment
-    Hi, Hello :)
-    This is a line jijiji
+    Hello
+    This is a line
     */
 
     # This is another Line Comment
