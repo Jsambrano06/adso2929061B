@@ -19,9 +19,6 @@
     // Crear o abrir el archivo
     $file = fopen($filename, "a+") or die("Unable to open file!");
 
-    // Escribir en el archivo
-    fwrite($file, "Hello, World!\n");
-
     // Volver al inicio del archivo para leer su contenido
     rewind($file);
     $content = fread($file, filesize($filename));
@@ -29,12 +26,6 @@
 
     echo '<p><strong>File content:</strong></p>';
     echo '<pre>' . htmlspecialchars($content) . '</pre>';
-
-    echo '<h2>Text Handling</h2>';
-    $text = "Hello, World!";
-    echo '<p>' . $text . '</p>';
-    echo '<p>String length: ' . strlen($text) . '</p>';
-    echo '<p>Uppercase: ' . strtoupper($text) . '</p>';
 
     include 'template/footer.php';
 ?>
