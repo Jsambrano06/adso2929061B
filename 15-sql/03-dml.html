@@ -4,30 +4,143 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>10 - TypeScript</title>
-    <link rel="stylesheet" href="../css/styles.css">
+    <title>03 DML</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        section {
+            textarea {
+                background-color: #8d481e;
+                border-radius: 0.4rem;
+                outline: none;
+                padding: 0.4rem;
+                color: #fff;
+                width: 100%;
+                min-height: 32px;
+                font-size: 0.8rem;
+                resize: none;
+                field-sizing: content;
+            }
+        }
+    </style>
 </head>
 
 <body class="sql">
     <nav>
-        <a href="../index.html">
+        <a href="index.html">
             <svg xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 576 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
-                <path
-                    d="M575.8 255.5c0 18-15 32.1-32 32.1h-32l.7 160.2c0 2.7-.2 5.4-.5 8.1V472c0 22.1-17.9 40-40 40H456c-1.1 0-2.2 0-3.3-.1c-1.4 .1-2.8 .1-4.2 .1H416 392c-22.1 0-40-17.9-40-40V448 384c0-17.7-14.3-32-32-32H256c-17.7 0-32 14.3-32 32v64 24c0 22.1-17.9 40-40 40H160 128.1c-1.5 0-3-.1-4.5-.2c-1.2 .1-2.4 .2-3.6 .2H104c-22.1 0-40-17.9-40-40V360c0-.9 0-1.9 .1-2.8V287.6H32c-18 0-32-14-32-32.1c0-9 3-17 10-24L266.4 8c7-7 15-8 22-8s15 2 21 7L564.8 231.5c8 7 12 15 11 24z" />
+                viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                <path fill="#ffffff"
+                    d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z" />
             </svg>
         </a>
     </nav>
     <main>
         <header>
-            <h1>ddl</h1>
-            <p>TypeScript is a typed superset of JavaScript that compiles to plain JavaScript. </p>
+            <h1>03 DML</h1>
+            <p>
+                Data Manipulation Language (DML) is a subset of SQL used for managing data within database tables, including operations such as inserting, updating, deleting, and retrieving data.
+            </p>
         </header>
-        <menu>
+        <section>
+            <h3>INSERT INTO (ShortHAnd):</h3>
+            <textarea>INSERT INTO gyms VALUES (DEFAULT, 'saffrom');
+INSERT INTO gyms VALUES (DEFAULT, 'fucshia');
+INSERT INTO trainers VALUES (DEFAULT, "Ash Ketchum", 2, 1);
+INSERT INTO trainers VALUES ( DEFAULT, "Misty", 4, 2);
+INSERT INTO trainers VALUES ( DEFAULT, "Brok", 6, 2);</textarea>
 
-        </menu>
-    </main>
+            <h3>INSER INTO (Long Form)</h3>
+            <textarea>INSERT INTO gyms (id, name) VALUES (DEFAULT, 'pallete');
+INSERT INTO trainers (id, name, level, gym_id) VALUES ( DEFAULT, "Serena", 4, 3);
+INSERT INTO trainers (id, name, level, gym_id) VALUES ( DEFAULT, "Oak", 9, 1);
+</textarea>
+            <h3>SELECT ALL pokemons</h3>
+            <textarea>SELECT * FROM pokemons;</textarea>
+            <!---->
+            <h3>SELECT especific COLUMNS</h3>
+            <textarea>SELECT name, type, FROM pokemons;</textarea>
+            <!---->
+            <h3>SELECT COLUMNS DISTICTS</h3>
+            <textarea>SELECT DISTINCT type FROM pokemons;</textarea>
+            <!---->
+            <h3>SELECT  WITH CONDITION (WHERE)</h3>
+            <textarea>SELECT name, type FROM pokemons WHERE type = 'Electric';</textarea>
+            <!---->
+            <h3>SELECT  WITH CONDITION (OR WHERE)</h3>
+            <textarea>SELECT name, type FROM pokemons WHERE type = 'Electric' OR type = 'Water';</textarea>
+            <!---->
+            <h3>SELECT  WITH CONDITION (AND WHERE)</h3>
+            <textarea>SELECT name, type FROM pokemons WHERE trainer_id = 2 AND type = 'Water';</textarea>
+            <!---->
+            <h3>SELECT WHIT CONDITION(>)</h3>
+            <textarea>SELECT name, type FROM pokemons WHERE strength > 1000;</textarea>
+            <!---->
+            <h3>SELECT WHIT CONDITION(<>)</h3>
+            <textarea>SELECT name, type FROM pokemons WHERE type <> 'Water';</textarea>
+            <!---->
+            <h3>SELECT WHIT CONDITION(BETWEEN)</h3>
+            <textarea>SELECT name, type, speed FROM pokemons WHERE speed BETWEEN 50 AND 100;</textarea>
+            <!---->
+            <h3>SELECT ORDER BY (ASC/DESC)</h3>
+            <textarea>SELECT name, type FROM pokemons WHERE type = 'Water' ORDER BY name ASC;
+SELECT name, type FROM pokemons WHERE type = 'Water' ORDER BY name DESC;
+            </textarea>
+            <!---->
+            <h3>SELECT LIMIT</h3>
+            <textarea>SELECT id, name, type FROM pokemons LIMIT 5;</textarea>
+            <!---->
+            <h3>SELECT OFFSET</h3>
+            <textarea>SELECT id, name, type FROM pokemons LIMIT 5 OFFSET 5;</textarea>
+            <!---->
+            <h3>SELECT SEARCH(LIKE)</h3>
+            <textarea>SELECT id, name, type FROM pokemons WHERE name LIKE "%as%";</textarea>
+            <!---->
+            <h3>SELECT SEARCH (LIKE: Start With W)</h3>
+            <textarea>SELECT id, name, type FROM pokemons WHERE type LIKE "W%";</textarea>
+            <!---->
+            <h3>SELECT SEARCH (LIKE: End with e)</h3>
+            <textarea>SELECT id, name, type FROM pokemons WHERE type LIKE "%e";</textarea>
+            <!---->
+            <h3>SELECT SEARCH (LIKE: Contains)</h3>
+            <textarea>SELECT id, name, type FROM pokemons WHERE name LIKE "%as%";</textarea>
+            <!---->
+            <h3>SELECT SEARCH (NOT LIKE: Contains)</h3>
+            <textarea>SELECT id, name, type FROM pokemons WHERE name NOT LIKE "%ma%";</textarea>
+            <!---->
+            <h3>SELECT SEARCH (LIKE: Complete)</h3>
+            <textarea>SELECT id, name, type FROM pokemons WHERE name LIKE "p_k_ch_";</textarea>
+            <!---->
+            <h3>SELECT SEARCH (IN)</h3>
+            <textarea>SELECT id, name, type FROM pokemons WHERE type IN ('Fire','Electric');</textarea>
+
+
+
+
+
+
+
+
+
+            <h3>SELECT CHALLENGES</h3>
+            <small>List pokemons type water average speed</small>
+            <textarea>SELECT AVG(speed) AVERAGE_SPEED FROM pokemons WHERE type = 'Water';</textarea>
+            <!---->
+            <small>List all pokemons total sum all skills</small>
+            <textarea>SELECT name, type, (strength + staming + speed + accuracy) AS total_skills FROM pokemons;</textarea>
+            <!---->
+            <small>Sum all skills by type</small>
+            <textarea>SELECT type, SUM(strength + staming + speed + accuracy) AS total_skills_por_tipo FROM pokemons GROUP BY type;</textarea>
+            <!---->
+            <small>Select COUNT(*)</small>
+            <textarea>SELECT COUNT(*) AS total_water_pokemons FROM pokemons WHERE type = 'water';</textarea>
+            <!---->
+            <!---->
+            <small>Select (ALIAS: Two Tables))</small>
+            <textarea>SELECT COUNT(*) AS total_water_pokemons FROM pokemons WHERE type = 'water';</textarea>
+            <!---->
+        </section>
+    </main> 
+    
 
 </body>
-
 </html>
