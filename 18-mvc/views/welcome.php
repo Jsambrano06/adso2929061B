@@ -1,83 +1,140 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Welcome MVC</title>
-  <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
-  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokemon MVC</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
-<body>
-  <div class="hero bg-base-200 min-h-screen">
-    <div class="hero-content text-center">
-      <div class="max-w-md">
-        <h1 class="text-5xl font-bold">MVC</h1>
-        <h3 class="mb-10">Model View Controller</h3>
+<body class="bg-base-200">
 
-        <a href="" class="btn btn-success my-4">
-          <svg xmlns="http://www.w3.org/2000/svg" class="size-6" fill="currentColor" viewBox="0 0 256 256">
-            <path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm48-88a8,8,0,0,1-8,8H136v32a8,8,0,0,1-16,0V136H88a8,8,0,0,1,0-16h32V88a8,8,0,0,1,16,0v32h32A8,8,0,0,1,176,128Z"></path>
-          </svg>
-          Add Pokemon
-        </a>
-        <div class="overflow-x-auto h-96 w-96">
-          <table class="table table-zebra table-xs table-pin-rows table-pin-cols">
-            <thead>
-              <tr>
-                <th>ID</th>
-                <td>Name</td>
-                <td>Type</td>
-                <td>Access</td>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              <?php foreach ($data as $pokemon): ?>
-                <tr>
-                  <th><?= htmlspecialchars($pokemon['id']) ?></th>
-                  <td><?= htmlspecialchars($pokemon['name']) ?></td>
-                  <td>
-                    <?php if ($pokemon['type'] == 'Water'): ?>
-                      <span class="badge badge-info">Water</span>
-                    <?php elseif ($pokemon['type'] == 'Grass'): ?>
-                      <span class="badge badge-success">Grass</span>
-                    <?php elseif ($pokemon['type'] == 'Fire'): ?>
-                      <span class="badge badge-error">Fire</span>
-                    <?php elseif ($pokemon['type'] == 'Electric'): ?>
-                      <span class="badge badge-warning">Electric</span>
-                    <?php elseif ($pokemon['type'] == 'Normal'): ?>
-                      <span class="badge badge-secondary">Normal</span>
-                    <?php elseif ($pokemon['type'] == 'Poison'): ?>
-                      <span class="badge badge-primary">Poison</span>
-                    <?php elseif ($pokemon['type'] == 'Ghost'): ?>
-                      <span class="badge badge-accent">Ghost</span>
-                    <?php elseif ($pokemon['type'] == 'Dragon'): ?>
-                      <span class="badge badge-secondary">Dragon</span>
-                    <?php elseif ($pokemon['type'] == 'Rock'): ?>
-                      <span class="badge badge-neutral">Rock</span>
-                    <?php endif; ?>
-                  </td>
-                  <td>
-                    <a href="" class="btn btn-xs btn-neutral"><svg xmlns="http://www.w3.org/2000/svg" class="size-4" fill="currentColor" viewBox="0 0 256 256">
-                        <path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"></path>
-                      </svg></a>
-                    <a href="" class="btn btn-xs btn-neutral"><svg xmlns="http://www.w3.org/2000/svg" class="size-4" fill="currentColor" viewBox="0 0 256 256">
-                        <path d="M227.31,73.37,182.63,28.68a16,16,0,0,0-22.63,0L36.69,152A15.86,15.86,0,0,0,32,163.31V208a16,16,0,0,0,16,16H92.69A15.86,15.86,0,0,0,104,219.31L227.31,96a16,16,0,0,0,0-22.63ZM92.69,208H48V163.31l88-88L180.69,120ZM192,108.68,147.31,64l24-24L216,84.68Z"></path>
-                      </svg></a>
-                    <a href="" class="btn btn-xs btn-error"><svg xmlns="http://www.w3.org/2000/svg" class="size-4" fill="currentColor" viewBox="0 0 256 256">
-                        <path d="M216,48H176V40a24,24,0,0,0-24-24H104A24,24,0,0,0,80,40v8H40a8,8,0,0,0,0,16h8V208a16,16,0,0,0,16,16H192a16,16,0,0,0,16-16V64h8a8,8,0,0,0,0-16ZM96,40a8,8,0,0,1,8-8h48a8,8,0,0,1,8,8v8H96Zm96,168H64V64H192ZM112,104v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Zm48,0v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Z"></path>
-                      </svg></a>
-                  </td>
-                </tr>
-              <?php endforeach; ?>
-            </tbody>
-          </table>
+    <!-- NAVBAR -->
+    <div class="navbar bg-base-100 shadow-lg px-6">
+        <div class="flex-1">
+            <span class="text-xl font-bold">⚡ Pokemon MVC</span>
         </div>
-      </div>
+        <div class="flex-none">
+            <a href="<?= $data['url'] ?>add" class="btn btn-success btn-sm gap-2">
+                ➕ Add Pokemon
+            </a>
+        </div>
     </div>
-  </div>
-</body>
 
+    <!-- CONTENT -->
+    <div class="container mx-auto p-6">
+
+        <div class="card bg-base-100 shadow-xl">
+            <div class="card-body">
+
+                <div class="text-center mb-6">
+                    <h1 class="text-4xl font-bold">Pokémon List</h1>
+                    <p class="text-base-content/70">Model · View · Controller</p>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="table table-zebra table-lg">
+                        <thead>
+                            <tr class="text-center">
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Type</th>
+                                <th>Trainer</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                        <?php foreach($data['pokemons'] as $pokemon): ?>
+                            <tr class="text-center align-middle">
+                                <td class="font-bold"><?= htmlspecialchars($pokemon['id']) ?></td>
+
+                                <td><?= htmlspecialchars($pokemon['name']) ?></td>
+
+                                <td>
+                                    <?php 
+                                    $typeColors = [
+                                        'Water' => 'badge-info',
+                                        'Grass' => 'badge-success',
+                                        'Fire' => 'badge-error',
+                                        'Electric' => 'badge-warning',
+                                        'Normal' => 'badge-secondary',
+                                        'Poison' => 'badge-primary',
+                                        'Ghost' => 'badge-accent',
+                                        'Dragon' => 'badge-secondary',
+                                        'Rock' => 'badge-neutral'
+                                    ];
+                                    $badgeClass = $typeColors[$pokemon['type']] ?? 'badge-ghost';
+                                    ?>
+                                    <span class="badge <?= $badgeClass ?> badge-lg">
+                                        <?= htmlspecialchars($pokemon['type']) ?>
+                                    </span>
+                                </td>
+
+                                <td>
+                                    <?php if ($pokemon['trainer_name']): ?>
+                                        <span class="badge badge-outline badge-lg">
+                                            <?= htmlspecialchars($pokemon['trainer_name']) ?>
+                                        </span>
+                                    <?php else: ?>
+                                        <span class="text-base-content/50 italic">
+                                            Sin entrenador
+                                        </span>
+                                    <?php endif; ?>
+                                </td>
+
+                                <td class="space-x-1">
+
+                                    <a href="<?= $data['url'] ?>show/<?= $pokemon['id'] ?>" 
+                                       class="btn btn-info btn-xs tooltip" data-tip="Ver">
+                                        🔍
+                                    </a>
+
+                                    <a href="<?= $data['url'] ?>edit/<?= $pokemon['id'] ?>" 
+                                       class="btn btn-warning btn-xs tooltip" data-tip="Editar">
+                                        ✏️
+                                    </a>
+
+                                    <a href="<?= $data['url'] ?>delete/<?= $pokemon['id'] ?>" 
+                                       class="btn btn-error btn-xs tooltip" data-tip="Eliminar">
+                                        🗑️
+                                    </a>
+
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                        </tbody>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- ALERT -->
+    <?php if (isset($_SESSION['message'])): ?>
+    <script>
+        Swal.fire({
+            icon: '<?= $_SESSION['message_type'] ?>',
+            title: '<?= $_SESSION['message_type'] === 'success' ? '¡Éxito!' : '¡Atención!' ?>',
+            text: '<?= $_SESSION['message'] ?>',
+            confirmButtonText: 'OK',
+            customClass: {
+                confirmButton: 'btn btn-success'
+            },
+            buttonsStyling: false,
+            timer: 3000,
+            timerProgressBar: true
+        });
+    </script>
+    <?php 
+        unset($_SESSION['message'], $_SESSION['message_type']);
+    endif; 
+    ?>
+
+</body>
 </html>

@@ -1,7 +1,10 @@
 <?php 
-
 class Load {
     public function view($nameView, $data = null) {
-        include_once 'views/' . $nameView;
+        if (file_exists('views/' . $nameView)) {
+            include_once 'views/' . $nameView;
+        } else {
+            die("Error: La vista '{$nameView}' no existe.");
+        }
     }
 }
