@@ -18,6 +18,9 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UserSeeder::class,
             PetSeeder::class,
+            AdoptionSeeder::class,
         ]);
+        
+        User::factory(100)->create();
     }
 }
