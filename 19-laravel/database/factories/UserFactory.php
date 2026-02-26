@@ -40,7 +40,7 @@ class UserFactory extends Factory
         ($gender == 'Female') ? $g = 'women' : $g = 'men';
         $id = fake()->numerify('75######');
         $tnd = fake()->numberBetween(1,99);
-        copy('https://randomuser.me/api/portraits/.$g'.'/'.$tnd.'.jpg', public_path('images/'.$id.'.png'));
+        copy('https://randomuser.me/api/portraits/'.$g.'/'.$tnd.'.jpg', public_path('images/'.$id.'.png'));
         $email = Str::slug(strtolower($name)).fake()->numerify('###'. '@mail.com');
 
         return [
