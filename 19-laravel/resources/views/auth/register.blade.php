@@ -2,8 +2,10 @@
 
 @section('title', 'Larapets: Register')
 @section('content')
+    @include('partials.navbar')
 
-    <section class="bg-[#0006] p-4 border-white border-2 rounded-md md:w-fit w-80 flex flex-col justify-center items-center my-5">
+    <section
+        class="bg-[#0006] p-4 border-white border-2 rounded-md md:w-fit w-80 flex flex-col justify-center items-center my-5">
 
         <h1 class="text-4xl flex border-b-2 pb-2 gap-2 text-white">
             <svg xmlns="http://www.w3.org/2000/svg" class="size-10" fill="currentcolor" viewBox="0 0 256 256">
@@ -72,8 +74,7 @@
                 @enderror
 
                 <label for="label">Password:</label>
-                <input class="input bg-[#0009] outline-1" type="password" name="password"
-                    placeholder="tusecreto">
+                <input class="input bg-[#0009] outline-1" type="password" name="password" placeholder="tusecreto">
                 @error('password')
                     <small class="badge badge-error w-full ">{{ $message }} </small>
                 @enderror

@@ -10,8 +10,20 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
 
-<body class="min-h-dvh flex flex-col gap-2 justify-center items-center bg-no-repeat bg-center bg-cover"
-    style="background-image: linear-gradient(to top, #000a, #000a), url('{{ asset('images/bg-welcome.avif') }}');">
+@auth
+    @php
+        if (Auth::user()->role == 'Admin') {
+            $colors = '#009a,#000e';
+        } else {
+            $colors = '#009a,#000e';
+        }
+    @endphp
+@else
+    @php $colors = '#000c,#0003'; @endphp
+@endauth
+
+<body class="min-h-dvh flex flex-col gap-2 justify-center items-center bg-no-repeat bg-center bg-cover bg-fixed pt-14 "
+    style="background-image: linear-gradient(to top, {{ $colors }}), url('{{ asset('images/bg-welcome.avif') }}');">
 
     <main>
         @yield('content')
