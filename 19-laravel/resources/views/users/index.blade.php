@@ -45,7 +45,8 @@
                 @csrf
                 <input type="file" name="file" id="file" class="hidden"
                     accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
-                <button type="button" class="btn btn-outline rounded-l-none text-white hover:bg-[#fff6] hover:text-white btn-import">
+                <button type="button"
+                    class="btn btn-outline rounded-l-none text-white hover:bg-[#fff6] hover:text-white btn-import">
                     <svg xmlns="http://www.w3.org/2000/svg" class="size-6" fill="currentColor" viewBox="0 0 256 256">
                         <path
                             d="M213.66,82.34l-56-56A8,8,0,0,0,152,24H56A16,16,0,0,0,40,40V216a16,16,0,0,0,16,16H200a16,16,0,0,0,16-16V88A8,8,0,0,0,213.66,82.34ZM160,51.31,188.69,80H160ZM200,216H56V40h88V88a8,8,0,0,0,8,8h48V216Zm-42.34-77.66a8,8,0,0,1-11.32,11.32L136,139.31V184a8,8,0,0,1-16,0V139.31l-10.34,10.35a8,8,0,0,1-11.32-11.32l24-24a8,8,0,0,1,11.32,0Z">
@@ -71,22 +72,30 @@
             <!-- head -->
             <thead>
                 <tr class="text-white bg-black">
-                    <th class="p-4">ID</th>
+                    <th class="p-4 hidden md:table-cell">ID</th>
+                    <th>Photo</th>
                     <th class="hidden md:table-cell">Document</th>
                     <th>FullName</th>
                     <th class="hidden md:table-cell">Email</th>
-                    <th>Role</th>
+                    <th class="hidden md:table-cell">Role</th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($users as $user)
-                    <tr>
-                        <td>{{ $user->id }}</td>
+                    <tr class="even:bg-white/5">
+                        <td class="hidden md:table-cell">{{ $user->id }}</td>
+                        <td>
+                            <div class="avatar">
+                                <div class="mask mask-squircle w-18">
+                                    <img src="{{ asset('images/' . $user->photo) }}" />
+                                </div>
+                            </div>
+                        </td>
                         <td class="hidden md:table-cell">{{ $user->document }}</td>
                         <td>{{ $user->fullname }}</td>
                         <td class="hidden md:table-cell">{{ $user->email }}</td>
-                        <td>
+                        <td class="hidden md:table-cell">
                             @if ($user->role == 'Admin')
                                 <span class="badge badge-outline badge-accent">Admin</span>
                             @else
@@ -121,8 +130,21 @@
             </tbody>
             <tfoot>
                 <tr>
-                    <td colspan="6"> {{ $users->links() }} </td>
+                    <td colspan="6"> {{ $users->links('partials.pagination') }} </td>
                 </tr>
             </tfoot>
         </table>
+    @endsection
+    @section('js')
+        <script>
+            @if (session('message'))
+                Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: "{{ session('message') }}",
+                    showConfirmButton: false,
+                    timer: 4500
+                });
+            @endif
+        </script>
     @endsection

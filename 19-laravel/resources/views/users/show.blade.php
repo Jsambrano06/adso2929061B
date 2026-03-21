@@ -1,16 +1,16 @@
 @extends('layouts.app')
 
-@section('title', 'Larapets: Add User')
+@section('title', 'Larapets: Show User')
 
 @section('content')
     @include('partials.navbar')
     <h1 class="mt-6 text-4xl text-white flex gap-2 items-center justify-center pb-4 border-b-2 border-neutral-50 mb-10">
-        <svg xmlns="http://www.w3.org/2000/svg" class="size-6" fill="currentColor" viewBox="0 0 256 256">
+        <svg xmlns="http://www.w3.org/2000/svg" class="size-6" fill="currentcolor" viewBox="0 0 256 256">
             <path
-                d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm48-88a8,8,0,0,1-8,8H136v32a8,8,0,0,1-16,0V136H88a8,8,0,0,1,0-16h32V88a8,8,0,0,1,16,0v32h32A8,8,0,0,1,176,128Z">
+                d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z">
             </path>
         </svg>
-        Add User
+        Show User
     </h1>
     {{-- Breadcrumbs --}}
     <div class="breadcrumbs text-sm text-white mb-6">
@@ -37,12 +37,12 @@
             </li>
             <li>
                 <span class="inline-flex items-center gap-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="size-4" fill="currentColor" viewBox="0 0 256 256">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="size-4" fill="currentcolor" viewBox="0 0 256 256">
                         <path
-                            d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm48-88a8,8,0,0,1-8,8H136v32a8,8,0,0,1-16,0V136H88a8,8,0,0,1,0-16h32V88a8,8,0,0,1,16,0v32h32A8,8,0,0,1,176,128Z">
+                            d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z">
                         </path>
                     </svg>
-                    Add User
+                    Show User
                 </span>
             </li>
         </ul>
@@ -54,48 +54,24 @@
             <div class="w-full md:w-[320px]">
                 <div
                     class="avatar flex flex-col gap-1 items-center justify-center cursor-pointer hover:scale-105 transition ease-in">
-                    <div id="upload" class="mask mask-squircle w-48">
-                        <img id="preview" src="{{ asset('images/no-photo.png') }}" />
+                    <div class="avatar">
+                        <div>
+                            <img src="{{ asset('images/' . $user->photo) }}" />
+                        </div>
                     </div>
-                    <small class="pb-0 border-white border-b flex gap-1 items-center justify-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="size-5" fill="currentColor" viewBox="0 0 256 256">
-                            <path
-                                d="M208,40H48A24,24,0,0,0,24,64V176a24,24,0,0,0,24,24H208a24,24,0,0,0,24-24V64A24,24,0,0,0,208,40Zm8,136a8,8,0,0,1-8,8H48a8,8,0,0,1-8-8V64a8,8,0,0,1,8-8H208a8,8,0,0,1,8,8Zm-48,48a8,8,0,0,1-8,8H96a8,8,0,0,1,0-16h64A8,8,0,0,1,168,224ZM157.66,106.34a8,8,0,0,1-11.32,11.32L136,107.31V152a8,8,0,0,1-16,0V107.31l-10.34,10.35a8,8,0,0,1-11.32-11.32l24-24a8,8,0,0,1,11.32,0Z">
-                            </path>
-                        </svg>
-                        Upload Photo
-                    </small>
-                    @error('photo')
-                        <small class="badge badge-error w-full mt-1 text-xs py-4">{{ $message }}</small>
-                    @enderror
                 </div>
                 <input type="file" id="photo" name="photo" class="hidden" accept="image/*">
             </div>
             <div class="w-full md:w-[320px]">
                 {{-- Document --}}
                 <label class="label text-white">Document:</label>
-                <input type="text" class="input bg-[#0009] outline-0" name="document" placeholder="75123123"
-                    value="{{ old('document') }}">
-                @error('document')
-                    <small class="badge badge-error w-full mt-1 text-xs py-4">{{ $message }}</small>
-                @enderror
+                <td class="hidden md:table-cell">{{ $user->document }}</td>
                 {{-- FullName --}}
                 <label class="label text-white">FullName:</label>
-                <input type="text" class="input bg-[#0009] outline-0" name="fullname" placeholder="Jeremias Springfield"
-                    value="{{ old('fullname') }}">
-                @error('fullname')
-                    <small class="badge badge-error w-full mt-1 text-xs py-4">{{ $message }}</small>
-                @enderror
+                <td>{{ $user->fullname }}</td>
                 {{-- Gender --}}
                 <label class="label text-white">Gender:</label>
-                <select name="gender" class="select bg-[#0009] outline-0">
-                    <option value="">Select...</option>
-                    <option value="Female" @if (old('gender') == 'Female') selected @endif>Female</option>
-                    <option value="Male" @if (old('gender') == 'Male') selected @endif>Male</option>
-                </select>
-                @error('gender')
-                    <small class="badge badge-error w-full mt-1 text-xs py-4">{{ $message }}</small>
-                @enderror
+                <td>{{ $user->gender }}</td>
                 {{-- Birthdate --}}
                 <label class="label text-white">Birthdate:</label>
                 <input type="date" class="input bg-[#0009] outline-0" name="birthdate" placeholder="1640-10-08"
@@ -133,18 +109,4 @@
             </div>
         </form>
     </div>
-@endsection
-@section('js')
-    <script>
-        $(document).ready(function() {
-            $('#upload').click(function(e) {
-                e.preventDefault()
-                $('#photo').click()
-            })
-            $('#photo').change(function(e) {
-                e.preventDefault()
-                $('#preview').attr('src', window.URL.createObjectURL($(this).prop('files')[0]))
-            })
-        })
-    </script>
 @endsection
