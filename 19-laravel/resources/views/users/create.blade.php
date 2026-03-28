@@ -47,7 +47,7 @@
             </li>
         </ul>
     </div>
-    <div class="card text-white md:w-[720px] w-[320px] bg-black/20 p-4 mb-4 rounded">
+    <div class="card text-white md:w-[720px] w-[320px] bg-black/50 p-8 mb-4">
         <form method="POST" action="{{ url('users') }}" class="flex flex-col md:flex-row gap-4 mt-4"
             enctype="multipart/form-data">
             @csrf

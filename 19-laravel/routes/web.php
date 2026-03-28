@@ -20,7 +20,20 @@ Route::middleware('auth')->group(function () {
         'pets' => PetController::class,
         'adoptions' => AdoptionController::class,
     ]);
+    //Exports PDF
+    Route::get('export/users/pdf', [UserController::class, 'pdf']);
+
+    // Exports Excel
+    Route::get('export/users/excel', [UserController::class, 'excel']);
+
+    // Import Excel
+    Route::post('import/users', [UserController::class, 'import']);
+    
+    // Search Users
+    Route::post('search/users', [UserController::class, 'search']);
 });
+
+
 
 require __DIR__.'/auth.php';
 Route::get('hello', function () {
