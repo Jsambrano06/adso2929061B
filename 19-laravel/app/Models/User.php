@@ -53,7 +53,7 @@ class User extends Authenticatable
         ];
     }
     //RelationShip:
-    //User has many Adoptions 
+    //User has many Adoptions
     public function adoptions() {
         return $this->hasMany(Adoption::class);
     }

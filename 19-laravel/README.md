@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">
@@ -57,3 +58,23 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+=======
+# ADSO 2929061 B 
+
+## Análisis y Desarrollo de Software 
+
+### Centro de Procesos Industriales y Construcción 
+
+___
+
+![Goku Ultrainstinto](https://tinyurl.com/4jkd6vkv)
+
+| ID | THEME      | Description                             | 
+|-   |---         |---                                      |
+|01  | javascript |Work Flow - Markup & Styling             |
+|02  | Html       |Structure - Hypertext Markup Lenguage    |
+|03  | Css         |Look & Fell - cascading style Sheets     |
+
+[ADSO File DRIVE](https://tinyurl.com/wnkk334u)
+
+>>>>>>> a98cf1b88d40ec0870383e90d47b3c9dd8ef8c02

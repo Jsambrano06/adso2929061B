@@ -19,7 +19,7 @@
             {{-- Module Users --}}
             <div class="card text-white bg-[#0006] w-96 shadow-sm">
                 <figure class="h-[240px]">
-                    <img class="object-cover" src="{{ asset('images/bg-users.webp') }}" />
+                    <img class="object-cover w-60 h-60" src="{{ asset('images/bg-users.webp') }}" />
                 </figure>
                 <div class="card-body">
                     <h2 class="card-title">
@@ -97,7 +97,7 @@
             {{-- Module Pets --}}
             <div class="card text-white bg-[#0006] w-96 shadow-sm">
                 <figure class="h-[240px]">
-                    <img class="object-cover" src="{{ asset('images/bg-pets.webp') }}" />
+                    <img class="object-cover w-60 h-60" src="{{ asset('images/pet.png') }}" />
                 </figure>
                 <div class="card-body">
                     <h2 class="card-title">
@@ -175,7 +175,7 @@
             {{-- Module Adoptions --}}
             <div class="card text-white bg-[#0006] w-96 shadow-sm">
                 <figure class="h-[240px]">
-                    <img class="object-cover" src="{{ asset('images/bg-adoptions.webp') }}" />
+                    <img class="object-cover w-60 h-60" src="{{ asset('images/adoption.png') }}" />
                 </figure>
                 <div class="card-body">
                     <h2 class="card-title">
@@ -214,7 +214,7 @@
                                 </svg>
                             </div>
                             <div class="flex items-center">
-                                <div class="text-xs uppercase font-semibold opacity-60">Dog Adopteds</div>
+                                <div class="text-xs uppercase font-semibold opacity-60">Dog Adopted</div>
                             </div>
                             <button class="btn btn-square btn-ghost">
                                 {{ App\Models\Pet::where('adopted', 1)->where('kind', 'Dog')->count() }}
@@ -230,7 +230,7 @@
                                 </svg>
                             </div>
                             <div class="flex items-center">
-                                <div class="text-xs uppercase font-semibold opacity-60">Cat Adpoteds</div>
+                                <div class="text-xs uppercase font-semibold opacity-60">Cat Adopted</div>
                             </div>
                             <button class="btn btn-square btn-ghost">
                                 {{ App\Models\Pet::where('adopted', 1)->where('kind', 'Cat')->count() }}
@@ -257,7 +257,7 @@
             {{-- Module My Profile --}}
             <div class="card text-white bg-[#0006] w-96 shadow-sm">
                 <figure class="h-[240px]">
-                    <img class="object-cover" src="{{ asset('images/bg-users.webp') }}" />
+                    <img class="object-cover w-60 h-60" src="{{ asset('images/user.png') }}" />
                 </figure>
                 <div class="card-body">
                     <h2 class="card-title">
@@ -285,7 +285,7 @@
             {{-- Module My Adoptions --}}
             <div class="card text-white bg-[#0006] w-96 shadow-sm">
                 <figure class="h-[240px]">
-                    <img class="object-cover" src="{{ asset('images/bg-pets.webp') }}" />
+                    <img class="object-cover w-60 h-60" src="{{ asset('images/pet.png') }}" />
                 </figure>
                 <div class="card-body">
                     <h2 class="card-title">
@@ -313,10 +313,10 @@
                     </div>
                 </div>
             </div>
-            {{-- Module Adoptions --}}
+            {{-- Module Make Adoption --}}
             <div class="card text-white bg-[#0006] w-96 shadow-sm">
                 <figure class="h-[240px]">
-                    <img class="object-cover" src="{{ asset('images/bg-adoptions.webp') }}" />
+                    <img class="object-cover w-60 h-60" src="{{ asset('images/adoption.png') }}" />
                 </figure>
                 <div class="card-body">
                     <h2 class="card-title">
@@ -330,7 +330,7 @@
                     </h2>
                     <div class="card-actions justify-end">
                         <a class="btn btn-outline hover:bg-[#fff6] hover:text-white mt-3"
-                            href="{{ url('makeadoption') }}">
+                            href="{{ url('listpets') }}">
                             Enter
                             <svg xmlns="http://www.w3.org/2000/svg" class="size-6" fill="currentColor"
                                 viewBox="0 0 256 256">
@@ -343,6 +343,29 @@
                 </div>
             </div>
         @endif
-
     </div>
+@endsection
+
+@section('js')
+<script>
+    @if(session('error'))
+    Swal.fire({
+        position: 'top-end',
+        icon: 'error',
+        title: '{{ session('error') }}',
+        showConfirmButton: false,
+        timer: 2500
+    });
+    @endif
+
+    @if(session('success'))
+    Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: '{{ session('success') }}',
+        showConfirmButton: false,
+        timer: 2500
+    });
+    @endif
+</script>
 @endsection

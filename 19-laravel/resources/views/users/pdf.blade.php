@@ -71,13 +71,13 @@
         }
 
         .status-active {
-            color: #48bb78;
+            color: rgb(0.74, 0.16, 232);
             font-weight: bold;
             text-align: center;
             display: inline-block;
             padding: 2px 8px;
             border-radius: 4px;
-            background: #f0fff4;
+            background: rgb(0.29, 0.07, 243);
         }
 
         .status-inactive {

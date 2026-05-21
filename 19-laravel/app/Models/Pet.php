@@ -28,9 +28,20 @@ class Pet extends Model
     ];
 
     //RelationShip:
-    //Pet has one Adoptions 
+    //Pet has one Adoptions
     public function adoptions() {
         return $this->hasOne(Adoption::class);
     }
 
+    // Scope Kinds - CORREGIDO
+    public function scopeKinds($query, $q){
+    if(trim($q)) {
+        $query->where('name', 'LIKE', "%$q%")
+              ->orWhere('kind', 'LIKE', "%$q%")
+              ->orWhere('breed', 'LIKE', "%$q%")
+              ->orWhere('location', 'LIKE', "%$q%")
+              ->orWhere('description', 'LIKE', "%$q%");
+    }
+    return $query;
+}
 }

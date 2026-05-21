@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('kind');
             $table->double('weight');
             $table->integer('age');
-            $table->string('bread');
+            $table->string('breed');
             $table->string('location');
             $table->text('description');
             $table->boolean('active')->default(1);
