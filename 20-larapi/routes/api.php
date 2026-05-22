@@ -15,7 +15,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth.toke
     # Endpoint: http://127.0.0.1:8000/api/pets/list
     Route::get('pets/list', [PetController::class, 'index']);
 
-    # Endpoint: http://127.0.0.1:8000/api/pets/show/12
+    # Endpoint: http://127.0.0.1:8000/api/pets/show/7
     Route::get('pets/show/{id}', [PetController::class, 'show']);
 
     # Endpoint: http://127.0.0.1:8000/api/pets/store
