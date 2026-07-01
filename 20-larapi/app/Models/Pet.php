@@ -6,16 +6,27 @@ use Illuminate\Database\Eloquent\Model;
 
 class Pet extends Model
 {
-     protected $fillable = [
+    protected $fillable = [
         'name',
         'image',
         'kind',
         'weight',
         'age',
-        'bread',
+        'breed',
         'location',
         'description',
         'active',
-        'adopted'
+        'adopted',
     ];
+
+    public function getImageAttribute($value)
+    {
+        if (!$value) {
+            return null;
+        }
+        if (strpos($value, 'data:') === 0 || strpos($value, 'http') === 0) {
+            return $value;
+        }
+        return url('pets/' . $value);
+    }
 }

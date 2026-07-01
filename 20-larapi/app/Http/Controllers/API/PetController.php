@@ -36,38 +36,36 @@ class PetController extends Controller
 
     public function store(Request $request)
     {
-        try {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'image' => 'nullable|string',
+            'kind' => 'required|string|max:255',
+            'weight' => 'nullable|numeric',
+            'age' => 'nullable|integer',
+            'breed' => 'nullable|string|max:255',
+            'location' => 'nullable|string|max:255',
+            'description' => 'nullable|string',
+            'active' => 'nullable|boolean',
+            'adopted' => 'nullable|boolean',
+        ]);
 
-            $validated = $request->validate([
-                'name' => 'required|string|max:255',
-                'image' => 'nullable|string|max:255',
-                'kind' => 'required|string|max:255',
-                'weight' => 'nullable|numeric',
-                'age' => 'nullable|integer',
-                'bread' => 'nullable|string|max:255',
-                'location' => 'nullable|string|max:255',
-                'description' => 'nullable|string',
-                'active' => 'nullable|boolean',
-                'adopted' => 'nullable|boolean',
-            ]);
+        $pet = Pet::create([
+            'name' => $validated['name'],
+            'kind' => $validated['kind'],
+            'breed' => $validated['breed'] ?? '',
+            'weight' => $validated['weight'] ?? 0,
+            'age' => $validated['age'] ?? 0,
+            'location' => $validated['location'] ?? '',
+            'description' => $validated['description'] ?? '',
+            'image' => $validated['image'] ?? 'no-image.png',
+            'active' => $validated['active'] ?? true,
+            'adopted' => $validated['adopted'] ?? false,
+        ]);
 
-            $pet = Pet::create(array_merge($validated, [
-                'active' => $validated['active'] ?? true,
-                'adopted' => $validated['adopted'] ?? false,
-            ]));
-
-            return response()->json([
-                'message' => '✅ Pet created successfully',
-                'pet' => $pet
-            ], 201);
-
-        } catch (\Exception $e) {
-
-            return response()->json([
-                'message' => '❌ Error creating pet',
-                'error' => $e->getMessage()
-            ], 500);
-        }
+        return response()->json([
+            'message' => '✅ Pet created successfully',
+            'pet' => $pet
+        ], 201);
     }
 
     public function update(Request $request, $id)
@@ -82,11 +80,11 @@ class PetController extends Controller
 
         $validated = $request->validate([
             'name' => 'sometimes|required|string|max:255',
-            'image' => 'sometimes|nullable|string|max:255',
+            'image' => 'sometimes|nullable|string',
             'kind' => 'sometimes|required|string|max:255',
             'weight' => 'sometimes|nullable|numeric',
             'age' => 'sometimes|nullable|integer',
-            'bread' => 'sometimes|nullable|string|max:255',
+            'breed' => 'sometimes|nullable|string|max:255',
             'location' => 'sometimes|nullable|string|max:255',
             'description' => 'sometimes|nullable|string',
             'active' => 'sometimes|boolean',
