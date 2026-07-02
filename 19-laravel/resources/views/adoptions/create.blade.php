@@ -45,7 +45,7 @@
                 <select name="pet_id" class="select bg-[#0009] outline-0 w-full">
                     <option value="">Select...</option>
                     @foreach($pets as $pet)
-                        <option value="{{ $pet->id }}" @if(old('pet_id') == $pet->id) selected @endif>{{ $pet->name }} - {{ $pet->kind }} ({{ $pet->breed }})</option>
+                        <option value="{{ $pet->id }}" @if(old('pet_id') == $pet->id) selected @endif>{{ $pet->name }} - {{ $pet->kind }} ({{ $pet->bread }})</option>
                     @endforeach
                 </select>
                 @error('pet_id')

@@ -39,12 +39,12 @@
                            p.name AS name,
                            p.photo AS photo,
                            s.name AS specie,
-                           b.name AS breed
+                           b.name AS bread
                     FROM pets AS p,
                          species AS s,
-                         breeds AS b
+                         breads AS b
                     WHERE s.id = p.specie_id
-                    AND b.id = p.breed_id";
+                    AND b.id = p.bread_id";
             $stmt = $conx->prepare($sql);
             $stmt->execute();
             return $stmt->fetchAll();
@@ -54,16 +54,16 @@
     }
 
     // Add Pet
-    function addPet($name, $specie_id, $breed_id, $sex_id, $photo, $conx) {
+    function addPet($name, $specie_id, $bread_id, $sex_id, $photo, $conx) {
         try {
             $sql = "INSERT INTO pets
-                    (name, specie_id, breed_id, sex_id, photo)
+                    (name, specie_id, bread_id, sex_id, photo)
                     VALUES
-                    (:name, :specie_id, :breed_id, :sex_id, :photo)";
+                    (:name, :specie_id, :bread_id, :sex_id, :photo)";
             $stmt = $conx->prepare($sql);
             $stmt->bindparam(":name", $name);
             $stmt->bindparam(":specie_id", $specie_id);
-            $stmt->bindparam(":breed_id", $breed_id);
+            $stmt->bindparam(":bread_id", $bread_id);
             $stmt->bindparam(":sex_id", $sex_id);
             $stmt->bindparam(":photo", $photo);
             if($stmt->execute()) {
@@ -82,17 +82,17 @@
             $sql = "SELECT p.name AS name,
                            p.photo AS photo,
                            p.specie_id AS specie_id,
-                           p.breed_id AS breed_id,
+                           p.bread_id AS bread_id,
                            p.sex_id AS sex_id,
                            s.name AS specie,
-                           b.name AS breed,
+                           b.name AS bread,
                            x.name AS sex
                     FROM pets AS p,
                          species AS s,
-                         breeds AS b,
+                         breads AS b,
                          sexes AS x
                     WHERE s.id = p.specie_id
-                    AND b.id = p.breed_id
+                    AND b.id = p.bread_id
                     AND x.id = p.sex_id
                     AND p.id = :id";
             $stmt = $conx->prepare($sql);
@@ -146,11 +146,11 @@
         }
     }
 
-    // List Breeds
-    function listBreeds($conx) {
+    // List breads
+    function listbreads($conx) {
         try {
             $sql = "SELECT *
-                    FROM breeds";
+                    FROM breads";
             $stmt = $conx->prepare($sql);
             $stmt->execute();
             return $stmt->fetchAll();
@@ -159,7 +159,7 @@
         }
     }
 
-    // List Breeds
+    // List breads
     function listSexes($conx) {
         try {
             $sql = "SELECT *
@@ -173,15 +173,15 @@
     }
 
         //edit pet
-    function editPet($id, $name, $specie_id, $breed_id, $sex_id, $photo, $conx) {
+    function editPet($id, $name, $specie_id, $bread_id, $sex_id, $photo, $conx) {
         try {
             $sql = "UPDATE pets
-                    SET name = :name, specie_id = :specie_id, breed_id = :breed_id, sex_id = :sex_id, photo = :photo
+                    SET name = :name, specie_id = :specie_id, bread_id = :bread_id, sex_id = :sex_id, photo = :photo
                     WHERE id = :id";
             $stmt = $conx->prepare($sql);
             $stmt->bindparam(":name", $name);
             $stmt->bindparam(":specie_id", $specie_id);
-            $stmt->bindparam(":breed_id", $breed_id);
+            $stmt->bindparam(":bread_id", $bread_id);
             $stmt->bindparam(":sex_id", $sex_id);
             $stmt->bindparam(":photo", $photo);
             $stmt->bindparam(":id", $id);

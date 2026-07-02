@@ -110,10 +110,10 @@
 
             {{-- Columna 3: Información adicional --}}
             <div class="w-full md:w-[320px]">
-                {{-- Breed --}}
-                <label class="label text-white">Breed:</label>
-                <input type="text" class="input input-bordered bg-black/50 text-white w-full" name="breed" placeholder="Enter pet's breed" value="{{ old('breed') }}" required>
-                @error('breed')
+                {{-- bread --}}
+                <label class="label text-white">bread:</label>
+                <input type="text" class="input input-bordered bg-black/50 text-white w-full" name="bread" placeholder="Enter pet's bread" value="{{ old('bread') }}" required>
+                @error('bread')
                     <small class="badge badge-error w-full mt-1 text-xs py-4">{{ $message }}</small>
                 @enderror
 

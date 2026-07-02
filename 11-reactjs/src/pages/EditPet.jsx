@@ -4,7 +4,6 @@ import { Camera, Pencil, MapPin } from "lucide-react";
 import MobileLayout from "../components/MobileLayout";
 import Header from "../components/Header";
 import { petService } from "../services/petService";
-import { fileToBase64 } from "../utils/imageHelper";
 
 const PET_TYPES = ["Perro", "Gato", "Ave", "Conejo", "Otro"];
 
@@ -15,13 +14,14 @@ function EditPet() {
   const [form, setForm] = useState({
     name: "",
     kind: "Perro",
-    breed: "",
+    bread: "",
     weight: "",
     age: "",
     location: "",
     description: "",
   });
   const [imagePreview, setImagePreview] = useState(null);
+  const [selectedFile, setSelectedFile] = useState(null);
   const [errors, setErrors] = useState({});
   const [apiError, setApiError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -34,7 +34,7 @@ function EditPet() {
         setForm({
           name: pet.name || "",
           kind: pet.kind || "Perro",
-          breed: pet.breed || "",
+          bread: pet.bread || "",
           weight: pet.weight ?? "",
           age: pet.age ?? "",
           location: pet.location || "",
@@ -50,13 +50,15 @@ function EditPet() {
     load();
   }, [id]);
 
-  const update = (field, value) => setForm((prev) => ({ ...prev, [field]: value }));
+  const update = (field, value) =>
+    setForm((prev) => ({ ...prev, [field]: value }));
 
-  const handleImage = async (e) => {
+  const handleImage = (e) => {
     const file = e.target.files?.[0];
     if (!file) return;
-    const base64 = await fileToBase64(file);
-    setImagePreview(base64);
+    const previewUrl = URL.createObjectURL(file);
+    setImagePreview(previewUrl);
+    setSelectedFile(file);
   };
 
   const validate = () => {
@@ -72,16 +74,20 @@ function EditPet() {
     setLoading(true);
     setApiError("");
     try {
-      const payload = {
-        name: form.name.trim(),
-        kind: form.kind,
-        breed: form.breed.trim() || "",
-        weight: form.weight !== "" ? parseFloat(form.weight) : 0,
-        age: form.age !== "" ? parseInt(form.age, 10) : 0,
-        location: form.location.trim() || "",
-        description: form.description.trim() || "",
-        ...(imagePreview && { image: imagePreview }),
-      };
+      const payload = new FormData();
+      payload.append("name", form.name.trim());
+      payload.append("kind", form.kind);
+      payload.append("bread", form.bread.trim() || "");
+      payload.append(
+        "weight",
+        form.weight !== "" ? parseFloat(form.weight) : 0,
+      );
+      payload.append("age", form.age !== "" ? parseInt(form.age, 10) : 0);
+      payload.append("location", form.location.trim() || "");
+      payload.append("description", form.description.trim() || "");
+      if (selectedFile) {
+        payload.append("image", selectedFile);
+      }
       await petService.update(id, payload);
       navigate(`/pets/${id}`);
     } catch (err) {
@@ -117,7 +123,10 @@ function EditPet() {
 
       <form onSubmit={handleSubmit}>
         <div className="pm-photo-upload">
-          <div className="pm-photo-upload__circle" onClick={() => fileRef.current?.click()}>
+          <div
+            className="pm-photo-upload__circle"
+            onClick={() => fileRef.current?.click()}
+          >
             {imagePreview ? (
               <img src={imagePreview} alt="Preview" />
             ) : (
@@ -127,7 +136,12 @@ function EditPet() {
               <Camera size={14} />
             </span>
           </div>
-          <input ref={fileRef} type="file" accept="image/*" onChange={handleImage} />
+          <input
+            ref={fileRef}
+            type="file"
+            accept="image/*"
+            onChange={handleImage}
+          />
         </div>
 
         <h2 className="pm-section-title">Información Básica</h2>
@@ -169,8 +183,8 @@ function EditPet() {
             <label className="pm-label">Raza</label>
             <input
               className="pm-input"
-              value={form.breed}
-              onChange={(e) => update("breed", e.target.value)}
+              value={form.bread}
+              onChange={(e) => update("bread", e.target.value)}
             />
           </div>
         </div>
@@ -222,10 +236,18 @@ function EditPet() {
         </div>
 
         <div className="pm-btn-row">
-          <button type="button" className="pm-btn pm-btn--secondary" onClick={() => navigate(`/pets/${id}`)}>
+          <button
+            type="button"
+            className="pm-btn pm-btn--secondary"
+            onClick={() => navigate(`/pets/${id}`)}
+          >
             Cancelar
           </button>
-          <button type="submit" className="pm-btn pm-btn--primary" disabled={loading}>
+          <button
+            type="submit"
+            className="pm-btn pm-btn--primary"
+            disabled={loading}
+          >
             {loading ? "Guardando..." : "Guardar cambios"}
           </button>
         </div>

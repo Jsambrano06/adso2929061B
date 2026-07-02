@@ -41,16 +41,26 @@ function PetDetail() {
     return (
       <MobileLayout>
         <Header title="PetManager" showBack showSearch />
-        <div className="pm-error-banner">{error || "Mascota no encontrada"}</div>
+        <div className="pm-error-banner">
+          {error || "Mascota no encontrada"}
+        </div>
       </MobileLayout>
     );
   }
 
   const stats = [
     { label: "Type", value: pet.kind || "—", icon: PawPrint },
-    { label: "Weight", value: pet.weight != null ? `${pet.weight} kg` : "—", icon: Scale },
-    { label: "Age", value: pet.age != null ? `${pet.age} Years` : "—", icon: Calendar },
-    { label: "Breed", value: pet.bread || "—", icon: Tag },
+    {
+      label: "Weight",
+      value: pet.weight != null ? `${pet.weight} kg` : "—",
+      icon: Scale,
+    },
+    {
+      label: "Age",
+      value: pet.age != null ? `${pet.age} Years` : "—",
+      icon: Calendar,
+    },
+    { label: "bread", value: pet.bread || "—", icon: Tag },
   ];
 
   return (
@@ -65,7 +75,9 @@ function PetDetail() {
         </div>
       )}
 
-      <span className="pm-pet-badge">ID: PM-{String(pet.id).padStart(4, "0")}</span>
+      <span className="pm-pet-badge">
+        ID: PM-{String(pet.id).padStart(4, "0")}
+      </span>
       <h2 className="pm-pet-name">{pet.name}</h2>
 
       <div className="pm-stats-grid">

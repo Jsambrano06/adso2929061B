@@ -33,7 +33,7 @@
                     <th>Photo</th>
                     <th>Name</th>
                     <th>Kind</th>
-                    <th class="hidden md:table-cell">Breed</th>
+                    <th class="hidden md:table-cell">bread</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -50,7 +50,7 @@
                         </td>
                         <td class="font-bold">{{ $pet->name }}</td>
                         <td>{{ $pet->kind }}</td>
-                        <td class="hidden md:table-cell">{{ $pet->breed }}</td>
+                        <td class="hidden md:table-cell">{{ $pet->bread }}</td>
                         <td>
                             <div class="flex gap-1">
                                 <a href="{{ url('showpet/' . $pet->id) }}" class="btn btn-xs btn-outline btn-default">

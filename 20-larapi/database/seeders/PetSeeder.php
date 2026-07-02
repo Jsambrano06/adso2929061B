@@ -13,7 +13,7 @@ class PetSeeder extends Seeder
             [
                 'name' => 'Cooper',
                 'kind' => 'Perro',
-                'breed' => 'Golden Retriever',
+                'bread' => 'Golden Retriever',
                 'weight' => 28.5,
                 'age' => 3,
                 'location' => 'Bogotá, Colombia',
@@ -22,7 +22,7 @@ class PetSeeder extends Seeder
             [
                 'name' => 'Luna',
                 'kind' => 'Perro',
-                'breed' => 'Siberian Husky',
+                'bread' => 'Siberian Husky',
                 'weight' => 22.0,
                 'age' => 2,
                 'location' => 'Medellín, Colombia',
@@ -31,7 +31,7 @@ class PetSeeder extends Seeder
             [
                 'name' => 'Mochi',
                 'kind' => 'Gato',
-                'breed' => 'Ragdoll Cat',
+                'bread' => 'Ragdoll Cat',
                 'weight' => 4.5,
                 'age' => 1,
                 'location' => 'Cali, Colombia',

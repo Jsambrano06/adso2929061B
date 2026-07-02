@@ -148,7 +148,7 @@
                 </td>
                 <td class="font-bold">{{ $adopt->pet->name ?? 'N/A' }}</td>
                 <td class="text-center">{{ $adopt->pet->kind ?? 'N/A' }}</td>
-                <td class="text-center">{{ $adopt->pet->breed ?? 'N/A' }}</td>
+                <td class="text-center">{{ $adopt->pet->bread ?? 'N/A' }}</td>
                 <td class="text-center">{{ \Carbon\Carbon::parse($adopt->created_at)->format('d/m/Y') }}</td>
                 <td class="text-center">
                     <span style="background-color: #48bb78; color: white; padding: 3px 8px; border-radius: 12px; font-size: 10px;">COMPLETADA</span>

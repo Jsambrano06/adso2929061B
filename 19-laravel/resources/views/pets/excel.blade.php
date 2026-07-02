@@ -127,7 +127,7 @@
                         {{ number_format($pet->age, 0) }} años
                     @endif
                 </td>
-                <td>{{ $pet->breed ?: 'No especificada' }}</td>
+                <td>{{ $pet->bread ?: 'No especificada' }}</td>
                 <td>{{ $pet->location ?: 'No especificada' }}</td>
                 <td>{{ Str::limit($pet->description, 100) }}</td>
                 <td class="text-center">

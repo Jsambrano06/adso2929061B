@@ -12,7 +12,7 @@
     </td>
     <td class="font-bold">{{ $pet->name }}</td>
     <td class="hidden md:table-cell">{{ $pet->kind }}</td>
-    <td class="hidden md:table-cell">{{ $pet->breed }}</td>
+    <td class="hidden md:table-cell">{{ $pet->bread }}</td>
     <td>
         @if ($pet->adopted)
             <span class="badge badge-success">Adopted</span>
@@ -48,7 +48,7 @@
         </td>
         <td class="font-bold">{{ $pet->name }}</td>
         <td class="hidden md:table-cell">{{ $pet->kind }}</td>
-        <td class="hidden md:table-cell">{{ $pet->breed }}</td>
+        <td class="hidden md:table-cell">{{ $pet->bread }}</td>
         <td>
             @if ($pet->adopted)
                 <span class="badge badge-success">Adopted</span>

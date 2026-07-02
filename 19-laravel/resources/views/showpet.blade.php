@@ -32,8 +32,8 @@
                 <td>{{ $pet->kind }}</td>
             </tr>
             <tr class="even:bg-gray-400">
-                <td class="font-bold">Breed</td>
-                <td>{{ $pet->breed }}</td>
+                <td class="font-bold">bread</td>
+                <td>{{ $pet->bread }}</td>
             </tr>
             <tr class="even:bg-gray-400">
                 <td class="font-bold">Age</td>

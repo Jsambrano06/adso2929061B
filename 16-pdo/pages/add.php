@@ -34,11 +34,11 @@
                 </select>
             </div>
             <div class="select">
-                <select name="breed_id">
+                <select name="bread_id">
                     <option value="">Seleccione Raza...</option>
-                    <?php $breeds = listBreeds($conx) ?>
-                    <?php foreach($breeds as $breed): ?>
-                        <option value="<?=$breed['id']?>" <?php if(isset($_POST['breed_id']) && $_POST['breed_id'] == $breed['id']) echo "selected"; ?>><?=$breed['id']?>-<?=$breed['name']?></option>
+                    <?php $breads = listbreads($conx) ?>
+                    <?php foreach($breads as $bread): ?>
+                        <option value="<?=$bread['id']?>" <?php if(isset($_POST['bread_id']) && $_POST['bread_id'] == $bread['id']) echo "selected"; ?>><?=$bread['id']?>-<?=$bread['name']?></option>
                     <?php endforeach ?>
                 </select>
             </div>
@@ -72,12 +72,12 @@
                 if($errors == 0) {
                     $name      = $_POST['name'];
                     $specie_id = $_POST['specie_id'];
-                    $breed_id  = $_POST['breed_id'];
+                    $bread_id  = $_POST['bread_id'];
                     $sex_id    = $_POST['sex_id'];
                     $photo     = time().".".pathinfo($_FILES['photo']['name'], PATHINFO_EXTENSION);
                     move_uploaded_file($_FILES['photo']['tmp_name'], "../uploads/".$photo);
 
-                    if(addPet($name, $specie_id, $breed_id, $sex_id, $photo, $conx)) {
+                    if(addPet($name, $specie_id, $bread_id, $sex_id, $photo, $conx)) {
                         $_SESSION['message'] = "La Mascota $name se adicionó con exito!";
                         echo "<script>window.location.replace('dashboard.php')</script>";
                     }

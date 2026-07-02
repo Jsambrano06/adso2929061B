@@ -94,8 +94,8 @@
                         @endif
                     </div>
                     <div class="break-words">
-                        <span class="font-bold block text-sm md:text-base">Breed:</span>
-                        <span class="break-all">{{ $pet->breed ?? 'Not specified' }}</span>
+                        <span class="font-bold block text-sm md:text-base">bread:</span>
+                        <span class="break-all">{{ $pet->bread ?? 'Not specified' }}</span>
                     </div>
                 </div>
 

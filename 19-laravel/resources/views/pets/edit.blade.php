@@ -123,11 +123,11 @@
 
             {{-- Columna 3 --}}
             <div class="w-full md:w-[320px]">
-                {{-- Breed --}}
-                <label class="label text-white">Breed:</label>
-                <input type="text" class="input bg-[#0009] outline-0 w-full" name="breed"
-                    value="{{ old('breed', $pet->breed) }}" required>
-                @error('breed')
+                {{-- bread --}}
+                <label class="label text-white">bread:</label>
+                <input type="text" class="input bg-[#0009] outline-0 w-full" name="bread"
+                    value="{{ old('bread', $pet->bread) }}" required>
+                @error('bread')
                     <small class="badge badge-error w-full mt-1 text-xs py-4">{{ $message }}</small>
                 @enderror
 

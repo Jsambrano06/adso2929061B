@@ -31,7 +31,7 @@
                         <h3><?=$pet['name']?></h3>
                         <h4>
                             <?=$pet['specie']?> -
-                            <?=$pet['breed']?>
+                            <?=$pet['bread']?>
                         </h4>
                     </div>
                     <div class="controls">

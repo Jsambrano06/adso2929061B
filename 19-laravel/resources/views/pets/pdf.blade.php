@@ -207,11 +207,11 @@
                     @endif
 <<<<<<< HEAD
                 <\/td>
-                <td class="text-center">{{ $pet->breed ?: 'No especificada' }}<\/td>
+                <td class="text-center">{{ $pet->bread ?: 'No especificada' }}<\/td>
                 <td class="text-center">{{ $pet->location ?: 'No especificada' }}<\/td>
                 <td style="font-size: 10px;">{{ Str::limit($pet->description, 50) }}<\/td>
 =======
-                <td class="text-center">{{ $pet->breed ?: 'No especificada' }}
+                <td class="text-center">{{ $pet->bread ?: 'No especificada' }}
                 <td class="text-center">{{ $pet->location ?: 'No especificada' }}
                 <td style="font-size: 10px;">{{ Str::limit($pet->description, 50) }}
 >>>>>>> bf55a9d (middleware)

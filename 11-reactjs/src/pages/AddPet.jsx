@@ -4,7 +4,6 @@ import { Camera, Pencil, MapPin } from "lucide-react";
 import MobileLayout from "../components/MobileLayout";
 import Header from "../components/Header";
 import { petService } from "../services/petService";
-import { fileToBase64 } from "../utils/imageHelper";
 
 const PET_TYPES = ["Perro", "Gato", "Ave", "Conejo", "Otro"];
 
@@ -14,24 +13,27 @@ function AddPet() {
   const [form, setForm] = useState({
     name: "",
     kind: "Perro",
-    breed: "",
+    bread: "",
     weight: "",
     age: "",
     location: "",
     description: "",
   });
   const [imagePreview, setImagePreview] = useState(null);
+  const [selectedFile, setSelectedFile] = useState(null);
   const [errors, setErrors] = useState({});
   const [apiError, setApiError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const update = (field, value) => setForm((prev) => ({ ...prev, [field]: value }));
+  const update = (field, value) =>
+    setForm((prev) => ({ ...prev, [field]: value }));
 
-  const handleImage = async (e) => {
+  const handleImage = (e) => {
     const file = e.target.files?.[0];
     if (!file) return;
-    const base64 = await fileToBase64(file);
-    setImagePreview(base64);
+    const previewUrl = URL.createObjectURL(file);
+    setImagePreview(previewUrl);
+    setSelectedFile(file);
   };
 
   const validate = () => {
@@ -48,16 +50,20 @@ function AddPet() {
     setLoading(true);
     setApiError("");
     try {
-      const payload = {
-        name: form.name.trim(),
-        kind: form.kind,
-        breed: form.breed.trim() || "",
-        weight: form.weight !== "" ? parseFloat(form.weight) : 0,
-        age: form.age !== "" ? parseInt(form.age, 10) : 0,
-        location: form.location.trim() || "",
-        description: form.description.trim() || "",
-        ...(imagePreview && { image: imagePreview }),
-      };
+      const payload = new FormData();
+      payload.append("name", form.name.trim());
+      payload.append("kind", form.kind);
+      payload.append("bread", form.bread.trim() || "");
+      payload.append(
+        "weight",
+        form.weight !== "" ? parseFloat(form.weight) : 0,
+      );
+      payload.append("age", form.age !== "" ? parseInt(form.age, 10) : 0);
+      payload.append("location", form.location.trim() || "");
+      payload.append("description", form.description.trim() || "");
+      if (selectedFile) {
+        payload.append("image", selectedFile);
+      }
       const pet = await petService.create(payload);
       navigate(`/pets/${pet.id}`);
     } catch (err) {
@@ -82,7 +88,10 @@ function AddPet() {
 
       <form onSubmit={handleSubmit}>
         <div className="pm-photo-upload">
-          <div className="pm-photo-upload__circle" onClick={() => fileRef.current?.click()}>
+          <div
+            className="pm-photo-upload__circle"
+            onClick={() => fileRef.current?.click()}
+          >
             {imagePreview ? (
               <img src={imagePreview} alt="Preview" />
             ) : (
@@ -93,7 +102,12 @@ function AddPet() {
             </span>
           </div>
           <span className="pm-photo-upload__label">Subir Foto</span>
-          <input ref={fileRef} type="file" accept="image/*" onChange={handleImage} />
+          <input
+            ref={fileRef}
+            type="file"
+            accept="image/*"
+            onChange={handleImage}
+          />
         </div>
 
         {apiError && <div className="pm-error-banner">{apiError}</div>}
@@ -131,8 +145,8 @@ function AddPet() {
             <input
               className="pm-input pm-input--alt"
               placeholder="Ej: Beagle"
-              value={form.breed}
-              onChange={(e) => update("breed", e.target.value)}
+              value={form.bread}
+              onChange={(e) => update("bread", e.target.value)}
             />
           </div>
         </div>
@@ -189,7 +203,12 @@ function AddPet() {
           />
         </div>
 
-        <button type="submit" className="pm-btn pm-btn--primary" disabled={loading} style={{ marginTop: 8 }}>
+        <button
+          type="submit"
+          className="pm-btn pm-btn--primary"
+          disabled={loading}
+          style={{ marginTop: 8 }}
+        >
           {loading ? "Guardando..." : "Agregar Mascota"}
         </button>
         <button

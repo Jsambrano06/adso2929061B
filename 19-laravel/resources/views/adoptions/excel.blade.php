@@ -60,7 +60,7 @@
                 <td>{{ $adopt->user->phone ?? 'N/A' }}</td>
                 <td>{{ $adopt->pet->name ?? 'N/A' }}</td>
                 <td>{{ $adopt->pet->kind ?? 'N/A' }}</td>
-                <td>{{ $adopt->pet->breed ?? 'N/A' }}</td>
+                <td>{{ $adopt->pet->bread ?? 'N/A' }}</td>
                 <td class="text-center">{{ \Carbon\Carbon::parse($adopt->created_at)->format('d/m/Y') }}</td>
             </tr>
 

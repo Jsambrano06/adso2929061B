@@ -12,7 +12,7 @@ class Pet extends Model
         'kind',
         'weight',
         'age',
-        'breed',
+        'bread',
         'location',
         'description',
         'active',
@@ -21,7 +21,7 @@ class Pet extends Model
 
     public function getImageAttribute($value)
     {
-        if (!$value) {
+        if (!$value || $value === 'no-image.png' || $value === 'uploaded') {
             return null;
         }
         if (strpos($value, 'data:') === 0 || strpos($value, 'http') === 0) {

@@ -17,25 +17,25 @@ class PetFactory extends Factory
     public function definition(): array
     {
         $petNames = ["Max","Bella","Charlie","Luna","Rocky","Milo","Coco","Toby","Daisy","Simba","Nala","Leo","Zeus","Chloe","Buddy","Lola","Jack","Lucy","Thor","Molly","Oliver","Bailey","Duke","Sasha","Rex","Mia","Bruno","Kira","Buster","Zoe",];
-        $dogBreeds = ["Labrador Retriever","German Shepherd","Golden Retriever","Bulldog","Poodle","Beagle","Rottweiler","Yorkshire Terrier","Boxer",];
-        $catBreeds = ["Persian","Siamese","Maine Coon","British Shoethair","Bengai",];
-        $pigBreeds = ["Juliana","Vietnamese","Kunekune","Gottingen Minipig","Yucatan Minipig",];
-        $birdBreeds = ["Budgerigan","cockatier","Lovebird","Canary","Hummingbird",];
+        $dogbreads = ["Labrador Retriever","German Shepherd","Golden Retriever","Bulldog","Poodle","Beagle","Rottweiler","Yorkshire Terrier","Boxer",];
+        $catbreads = ["Persian","Siamese","Maine Coon","British Shoethair","Bengai",];
+        $pigbreads = ["Juliana","Vietnamese","Kunekune","Gottingen Minipig","Yucatan Minipig",];
+        $birdbreads = ["Budgerigan","cockatier","Lovebird","Canary","Hummingbird",];
 
         $kind =  fake()->randomElement(["Dog","Cat","Pig","Bird",]);
 
         switch ($kind) {
             case "Dog":
-                $breed = fake()->randomElement($dogBreeds);
+                $bread = fake()->randomElement($dogbreads);
                 break;
             case "Cat":
-                $breed = fake()->randomElement($catBreeds);
+                $bread = fake()->randomElement($catbreads);
                 break;
             case "Pig":
-                $breed = fake()->randomElement($pigBreeds);
+                $bread = fake()->randomElement($pigbreads);
                 break;
             default;
-                $breed = fake()->randomElement($birdBreeds);
+                $bread = fake()->randomElement($birdbreads);
                 break;
         }
 
@@ -45,7 +45,7 @@ class PetFactory extends Factory
         'kind'        => $kind,
         'weight'      => fake()->numerify('#.#'),
         'age'         => fake()->numberBetween(1, 15),
-        'breed'       => $breed,
+        'bread'       => $bread,
         'location'    => fake()->city,
         'description' => fake()->sentence(5),
         ];

@@ -12,13 +12,13 @@
     $pet = showPet($id, $conx);
 
     $species = listSpecies($conx);
-    $breeds = listBreeds($conx);
+    $breads = listbreads($conx);
     $sexes = listSexes($conx);
 
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $name = $_POST['name'];
         $specie_id = $_POST['specie_id'];
-        $breed_id = $_POST['breed_id'];
+        $bread_id = $_POST['bread_id'];
         $sex_id = $_POST['sex_id'];
 
         $photo = $pet['photo'];
@@ -47,7 +47,7 @@
             }
         }
 
-        if(editPet($id, $name, $specie_id, $breed_id, $sex_id, $photo, $conx)){
+        if(editPet($id, $name, $specie_id, $bread_id, $sex_id, $photo, $conx)){
             $_SESSION['message'] = "Mascota actualizada";
             header("Location: dashboard.php");
             exit();
@@ -94,10 +94,10 @@
             </div>
 
             <div class="select">
-                <select name="breed_id">
+                <select name="bread_id">
                     <option value="">Seleccione Raza...</option>
-                    <?php foreach($breeds as $br): ?>
-                        <option value="<?=$br['id']?>" <?=($br['id']==$pet['breed_id'])?'selected':''?>><?=$br['name']?></option>
+                    <?php foreach($breads as $br): ?>
+                        <option value="<?=$br['id']?>" <?=($br['id']==$pet['bread_id'])?'selected':''?>><?=$br['name']?></option>
                     <?php endforeach; ?>
                 </select>
             </div>

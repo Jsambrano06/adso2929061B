@@ -24,19 +24,19 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla breeds
+-- Estructura de tabla para la tabla breads
 --
 
-CREATE TABLE breeds (
+CREATE TABLE breads (
   id int(11) NOT NULL,
   name varchar(32) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Volcado de datos para la tabla breeds
+-- Volcado de datos para la tabla breads
 --
 
-INSERT INTO breeds (id, name) VALUES
+INSERT INTO breads (id, name) VALUES
 (1, 'Golden Retriever'),
 (2, 'Pug'),
 (3, 'Persian');
@@ -51,7 +51,7 @@ CREATE TABLE pets (
   id int(11) NOT NULL,
   name varchar(16) NOT NULL,
   specie_id int(11) NOT NULL,
-  breed_id int(11) NOT NULL,
+  bread_id int(11) NOT NULL,
   photo varchar(64) NOT NULL,
   sex_id int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -60,7 +60,7 @@ CREATE TABLE pets (
 -- Volcado de datos para la tabla pets
 --
 
-INSERT INTO pets (id, name, specie_id, breed_id, photo, sex_id) VALUES
+INSERT INTO pets (id, name, specie_id, bread_id, photo, sex_id) VALUES
 (1, 'Ruperto', 1, 2, 'pug.png', 1),
 (2, 'Michifu', 2, 3, 'michi.png', 2);
 
@@ -127,9 +127,9 @@ INSERT INTO users (id, fullname, email, password) VALUES
 --
 
 --
--- Indices de la tabla breeds
+-- Indices de la tabla breads
 --
-ALTER TABLE breeds
+ALTER TABLE breads
   ADD PRIMARY KEY (id);
 
 --
@@ -138,7 +138,7 @@ ALTER TABLE breeds
 ALTER TABLE pets
   ADD PRIMARY KEY (id),
   ADD KEY specie_id (specie_id),
-  ADD KEY breed_id (breed_id),
+  ADD KEY bread_id (bread_id),
   ADD KEY sex_id (sex_id);
 
 --
@@ -164,9 +164,9 @@ ALTER TABLE users
 --
 
 --
--- AUTO_INCREMENT de la tabla breeds
+-- AUTO_INCREMENT de la tabla breads
 --
-ALTER TABLE breeds
+ALTER TABLE breads
   MODIFY id int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
@@ -202,7 +202,7 @@ ALTER TABLE users
 --
 ALTER TABLE pets
   ADD CONSTRAINT pets_ibfk_1 FOREIGN KEY (specie_id) REFERENCES species (id),
-  ADD CONSTRAINT pets_ibfk_2 FOREIGN KEY (breed_id) REFERENCES breeds (id),
+  ADD CONSTRAINT pets_ibfk_2 FOREIGN KEY (bread_id) REFERENCES breads (id),
   ADD CONSTRAINT pets_ibfk_3 FOREIGN KEY (sex_id) REFERENCES sexes (id);
 COMMIT;
 

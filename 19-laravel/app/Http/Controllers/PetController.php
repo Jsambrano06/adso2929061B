@@ -39,7 +39,7 @@ class PetController extends Controller
             'kind' => ['required', 'string', 'in:Perro,Gato'],
             'weight' => ['required', 'numeric', 'min:0'],
             'age' => ['required', 'numeric', 'min:0'],
-            'breed' => ['required', 'string'],
+            'bread' => ['required', 'string'],
             'location' => ['required', 'string'],
             'description' => ['required', 'string'],
         ]);
@@ -58,7 +58,7 @@ class PetController extends Controller
         $pet->kind = $request->kind;
         $pet->weight = $request->weight;
         $pet->age = $request->age;
-        $pet->breed = $request->breed;
+        $pet->bread = $request->bread;
         $pet->location = $request->location;
         $pet->description = $request->description;
         $pet->active = 1;
@@ -99,7 +99,7 @@ class PetController extends Controller
             'kind' => ['required', 'string'],
             'weight' => ['required', 'numeric'],
             'age' => ['required', 'numeric'],
-            'breed' => ['required', 'string'],
+            'bread' => ['required', 'string'],
             'location' => ['required', 'string'],
             'description' => ['required', 'string'],
         ]);
@@ -108,7 +108,7 @@ class PetController extends Controller
         $pet->kind = $request->kind;
         $pet->weight = $request->weight;
         $pet->age = $request->age;
-        $pet->breed = $request->breed;
+        $pet->bread = $request->bread;
         $pet->location = $request->location;
         $pet->description = $request->description;
 
@@ -158,7 +158,7 @@ class PetController extends Controller
     $q = $request->input('q');
     $pets = Pet::where('name', 'like', '%' . $q . '%')
         ->orWhere('kind', 'like', '%' . $q . '%')
-        ->orWhere('breed', 'like', '%' . $q . '%')
+        ->orWhere('bread', 'like', '%' . $q . '%')
         ->orderBy('id', 'desc')
         ->paginate(12);
     

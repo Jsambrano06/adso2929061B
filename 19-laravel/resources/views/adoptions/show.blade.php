@@ -117,7 +117,7 @@
                     </span>
                 </li>
                 <li class="list-row">
-                    <span class="text-[#fff9] font-semibold">Breed:</span> <span>{{ $adopt->pet->breed ?? 'N/A' }}</span>
+                    <span class="text-[#fff9] font-semibold">bread:</span> <span>{{ $adopt->pet->bread ?? 'N/A' }}</span>
                 </li>
                 <li class="list-row">
                     <span class="text-[#fff9] font-semibold">Weight:</span> <span>{{ $adopt->pet->weight ?? 'N/A' }} kg</span>

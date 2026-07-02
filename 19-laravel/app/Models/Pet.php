@@ -20,7 +20,7 @@ class Pet extends Model
         'kind',
         'weight',
         'age',
-        'breed',
+        'bread',
         'location',
         'description',
         'active',
@@ -38,7 +38,7 @@ class Pet extends Model
     if(trim($q)) {
         $query->where('name', 'LIKE', "%$q%")
               ->orWhere('kind', 'LIKE', "%$q%")
-              ->orWhere('breed', 'LIKE', "%$q%")
+              ->orWhere('bread', 'LIKE', "%$q%")
               ->orWhere('location', 'LIKE', "%$q%")
               ->orWhere('description', 'LIKE', "%$q%");
     }

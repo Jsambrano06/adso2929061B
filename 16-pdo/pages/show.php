@@ -29,7 +29,7 @@
         <div>
             <article class="info-name"><p><?=$pet['name']?></p></article>
             <article class="info-race"><p><?=$pet['specie']?></p></article>
-            <article class="info-category"><p><?=$pet['breed']?></p></article>
+            <article class="info-category"><p><?=$pet['bread']?></p></article>
             <article class="info-gender"><p><?=$pet['sex']?></p></article>
         </div>
     </main>

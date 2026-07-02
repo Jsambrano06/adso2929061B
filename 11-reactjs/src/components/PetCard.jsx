@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { MoreVertical, PawPrint } from "lucide-react";
+import { MoreVertical, PawPrint, Trash2, X } from "lucide-react";
 import { petService } from "../services/petService";
 
 function formatAge(age) {
@@ -12,16 +12,21 @@ function PetCard({ pet, onDeleted }) {
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
   const [deleting, setDeleting] = useState(false);
+  const [confirmOpen, setConfirmOpen] = useState(false);
 
   const handleDelete = async (e) => {
     e.stopPropagation();
-    if (!window.confirm(`¿Eliminar a ${pet.name}?`)) return;
+    setConfirmOpen(true);
+  };
+
+  const confirmDelete = async () => {
     setDeleting(true);
     try {
       await petService.remove(pet.id);
       onDeleted?.(pet.id);
-    } catch {
-      alert("Error al eliminar la mascota");
+      setConfirmOpen(false);
+    } catch (err) {
+      alert(err?.response?.data?.message || "Error al eliminar la mascota");
     } finally {
       setDeleting(false);
       setMenuOpen(false);
@@ -50,7 +55,10 @@ function PetCard({ pet, onDeleted }) {
           {pet.age != null && ` • ${formatAge(pet.age)}`}
         </div>
       </div>
-      <div className="pm-pet-card__menu-wrap" onClick={(e) => e.stopPropagation()}>
+      <div
+        className="pm-pet-card__menu-wrap"
+        onClick={(e) => e.stopPropagation()}
+      >
         <button
           type="button"
           className="pm-pet-card__menu-btn"
@@ -62,7 +70,10 @@ function PetCard({ pet, onDeleted }) {
         </button>
         {menuOpen && (
           <div className="pm-pet-card__dropdown">
-            <button type="button" onClick={() => navigate(`/pets/${pet.id}/edit`)}>
+            <button
+              type="button"
+              onClick={() => navigate(`/pets/${pet.id}/edit`)}
+            >
               Editar
             </button>
             <button type="button" className="danger" onClick={handleDelete}>
@@ -71,6 +82,50 @@ function PetCard({ pet, onDeleted }) {
           </div>
         )}
       </div>
+
+      {confirmOpen && (
+        <div
+          className="pm-confirm-overlay"
+          onClick={() => setConfirmOpen(false)}
+        >
+          <div
+            className="pm-confirm-dialog"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              type="button"
+              className="pm-confirm-dialog__close"
+              onClick={() => setConfirmOpen(false)}
+            >
+              <X size={16} />
+            </button>
+            <div className="pm-confirm-dialog__icon">
+              <Trash2 size={20} />
+            </div>
+            <h3>¿Eliminar mascota?</h3>
+            <p>
+              Esta acción eliminará a <strong>{pet.name}</strong> de la lista.
+            </p>
+            <div className="pm-confirm-dialog__actions">
+              <button
+                type="button"
+                className="pm-btn pm-btn--secondary"
+                onClick={() => setConfirmOpen(false)}
+              >
+                Cancelar
+              </button>
+              <button
+                type="button"
+                className="pm-btn pm-btn--primary"
+                onClick={confirmDelete}
+                disabled={deleting}
+              >
+                {deleting ? "Eliminando..." : "Sí, eliminar"}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -100,7 +100,7 @@ class CustomerController extends Controller
                 ->where(function($query) use ($q) {
                     $query->where('name', 'LIKE', "%$q%")
                           ->orWhere('kind', 'LIKE', "%$q%")
-                          ->orWhere('breed', 'LIKE', "%$q%")
+                          ->orWhere('bread', 'LIKE', "%$q%")
                           ->orWhere('location', 'LIKE', "%$q%");
                 })
                 ->orderBy('id', 'desc')

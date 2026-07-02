@@ -14,7 +14,7 @@ return new class extends Migration {
             $table->string('kind');
             $table->decimal('weight', 8, 2)->nullable();
             $table->unsignedInteger('age')->nullable();
-            $table->string('breed')->nullable();
+            $table->string('bread')->nullable();
             $table->string('location')->nullable();
             $table->text('description')->nullable();
             $table->boolean('active')->default(true);
